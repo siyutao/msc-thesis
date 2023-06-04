@@ -1,4 +1,4 @@
-%% References used
+%% References
 %% https://alexanderfabisch.github.io/latex-for-dissertations.html
 
 \documentclass[
@@ -35,6 +35,13 @@
 
 % while drafting
 % \includeonly{chapters/introduction}
+\setlength{\marginparwidth }{2cm} 
+\usepackage[obeyDraft]{todonotes}
+\setuptodonotes{inline}
+% FOR TESTING
+\usepackage{blindtext}
+% \usepackage{showframe}
+
 
 \usepackage[ngerman, english]{babel} %last language in the list is the main language, in this case English (American)
 % font as needed for additional languages
@@ -44,18 +51,29 @@
 \usepackage{xeCJK}
 \setCJKmainfont{Noto Serif CJK TC}
 \setCJKsansfont{Noto Sans CJK TC}
-
+\setCJKmonofont{Noto Sans Mono CJK TC}
 
 % quotation style
 \usepackage[english=american]{csquotes}
 
-% FOR TESTING
-\usepackage{blindtext}
-% \usepackage{showframe}
 
 % other
+\usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tabularx}
+\usepackage{adjustbox}
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem*{definition*}{Definition}
+
+% linguistics stuff
+\usepackage{tikz-dependency}
+\usepackage{forest}
+\usepackage{gb4e}
+\noautomath
 
 \begin{document}
 
@@ -76,7 +94,7 @@
         Supervisors: & Jun.-Prof. Dr. Annemarie Verkerk\\
         {}& Dr. Lucia Donatelli
     \end{tabular}\\
-    \vspace{4cm}
+    \vspace{5cm}
     \includegraphics[height=2cm]{figures/UdS_Logo.pdf}
 }
 
@@ -91,6 +109,9 @@
 \mainmatter
 \include{chapters/introduction}
 \include{chapters/motivation}
+\include{chapters/methodology}
+\include{chapters/experiments}
+\include{chapters/conclusion}
 
 \appendix
 \include{appendices/appendix_a}
@@ -102,5 +123,6 @@
 % \listoftables
 
 \chapter{Bibliography}
+\printbibliography[heading=none]
 
 \end{document}
