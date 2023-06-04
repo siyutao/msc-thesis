@@ -25,44 +25,68 @@ The UD annotations provide us with good facility to investigate transitivity at 
 
 \subsection{Experiment design}
 
-Given the clear and typologically sound UD dependency relations, one can be forgiven for already starting up the code editor to try to calculate the transitivity ratio based on them. On closer examination, however, we see that arriving at a clear definition of transitivity is in fact not trivial.
+Given the clear and typologically sound UD dependency relations, one can be forgiven for having already started up the code editor and tried to calculate the transitivity ratio based on them. On closer examination, however, we see that arriving at a clear definition of transitivity is in fact not trivial.
 
 We consider four different definitions of a quantitative transitivity ratio within the UD annotation scheme:
 
 \begin{enumerate}
-    \item the number of verb instances both \textsc{nsubj} and \textsc{obj} dependents, divided by the number of verb instances with an \textsc{nsubj} dependent
+    \item the number of verb instances with both \textsc{nsubj} and \textsc{obj} dependents, divided by the number of verb instances with an \textsc{nsubj} dependent
     \item the number of verb instances with an \textsc{obj} dependent, divided by the number of verb instances with an \textsc{nsubj} dependent
     \item the number of verb instances with an \textsc{obj} dependent, divided by the total number of verb instances
     \item the number of verb instances with an \textsc{obj} dependent, divided by the number of verb instances with either an \textsc{nsubj} or an \textsc{obj} dependent
 \end{enumerate}
 
-We consider the options: Def. 1 is an attempt at enforcing the definition of the transitive object as the \textit{second} core argument of the verb by excluding from calculation instances where the first core argument (i.e. subject) is not realized. This turns out counterproductive for two reasons. Firstly, this does not sit well with the semantic aspect of transitivity, as instances of verb use where the subject should not be counted against the fact that the verb is taking a transitive object; secondly, this is undesirable from a typological perspective as well, as the metric would be biased against pro-drop languages where the pronouns would often be dropped when inferrable from grammar or context. \todo{an example sentence from a pro-drop language to illustrate}
+Def. 1 is an attempt at enforcing the definition of the transitive object as the \textit{second} core argument of the verb by excluding from calculation instances where the first core argument (i.e., subject) is not realized. This turns out counterproductive for two reasons. Firstly, this does not sit well with the focus on transitivity, as instances of verb use where the subject is not expressed are not per se evidence against the fact that the verb is taking a transitive object; secondly, this is undesirable from a typological perspective as well, as the metric would be biased against pro-drop languages where the pronouns would often be dropped when inferrable from grammar or context. \todo{an example sentence from a pro-drop language to illustrate}
+
+Def. 2 comes as a reaction to the deficiencies of Def. 1, namely by dropping the requirement in the numerator for verbs to have an \textsc{nsubj} dependent. However, we are now left with the opposite problem if we are to account for typological variations, where pro-drop languages are likely to have a smaller denominator, resulting in an undesired higher transitivity ratio. The pendular biases tempt us to simply drop the \textsc{nsubj} requirement in the denominator too, arriving at Def. 3, which appears to be an elegant and simple solution. That is, until we realize the verb instances where both subject and object are dropped would affect the denominator, and such usage, e.g., non-predicative usage of verbs, is unlikely to be equally frequent in different languages and would therefore interfere with the cross-lingual comparability of our transitivity ratio. Taking all these potential drawbacks into consideration, we propose Def. 4 with the number of verb instances with either an \textsc{nsubj} or an \textsc{obj} dependent in the denominator. 
 
 \begin{table}[ht]
-  \label{tab:transitivity-defs}
   \centering
   \begin{tabularx}{0.5\textwidth}{cX}
   {\#} & \textbf{Definition} \\
   \hline
   1&$[+\textsc{nsubj}, +\textsc{obj}]/ [+\textsc{subj}]$ \\
   2&$[+\textsc{obj}] / [+\textsc{nsubj}]$  \\
-  3&$[+\textsc{obj}] / []$ \\
+  3&$[+\textsc{obj}] / []$\\
   4&$[+\textsc{obj}] / [+\textsc{nsubj}] \text{ or } [+\textsc{obj}]$
   \end{tabularx}
-  \caption{Potential definitions of transitivity ratio considered in §\ref{sec:exp1}, represented with feature matrices}
+  \caption{Potential definitions of transitivity ratio considered in §\ref{sec:exp1}, represented with feature matrices}\label{tab:transitivity-defs}
 \end{table}
 
-Def. 2 comes as a reaction to the deficiencies of Def. 1, namely by dropping the requirement in the numerator for verbs to have an \textsc{nsubj} dependent. However, we are now left with the opposite typological problem, where the features of pro-drop languages biases the denominator lower, resulting in a biased higher metric overall. We are now tempted to simply drop the \textsc{nsubj} requirement in the denominator as well, arriving at Def. 3. This appears to be an elegant and simple solution, until we realize the instances of verb use where both subject and object are dropped, which may not be equally frequent in different languages, interfering with the cross-linguistic comparison of the transitivity ratios. Thus, we arrive at Def. 4 with the number of verb instances with either an \textsc{nsubj} or an \textsc{obj} dependent in the denominator, which avoids the drawbacks of the other definitions. 
-
-While Def. 4 seems to be the most principled one in theory, we nevertheless implement all four definitions in practice for this experiment to empirically verify our intuitions. 
+While we have a strong case for Def. 4 being the most principled definition, we nevertheless implement all four definitions in this experiment to empirically verify our intuitions. They are also represented with feature matrices in Tab.~\ref{tab:transitivity-defs} for quick reference. For the experiment, we go through all eligible UD corpora and compile transitivity ratio statistics for each lexeme and later summarizing the transitivity ratio statistics at a language-level.
 
 \subsection{Results}
 
+The full results from the experiments are included in the appendices. 
+\todo{most transitive languages}
+\todo{least transitive languages}
+\todo{areal patterns and comparison against previous studies}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{figures/transitivity_europe.pdf}
+  \caption{Mean transitivity ratios in languages of Europe}
+  \label{fig:transitivity_europe}
+\end{figure}
+
+compare results with \citet{say2014} - same areal patterns
 
 \section{Experiment 2: Valency entropy}
+\subsection{Motivation}
+\subsection{Experiment design}
+\subsection{Results}
 
 \section{Experiment 3: Word order and case information}
+\subsection{Motivation}
+\subsection{Experiment design: ablation studies}
+\subsection{Results}
 
 \section{Experiment 4: Verb entropy}
+\subsection{Motivation}
+\subsection{Experiment design}
+\subsection{Results}
 
 \section{Experiment 5: Verb-finalness}
+\subsection{Motivation}
+\subsection{Experiment design}
+\subsection{Results}
