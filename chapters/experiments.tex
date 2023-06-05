@@ -40,34 +40,36 @@ Def. 1 is an attempt at enforcing the definition of the transitive object as the
 
 Def. 2 comes as a reaction to the deficiencies of Def. 1, namely by dropping the requirement in the numerator for verbs to have an \textsc{nsubj} dependent. However, we are now left with the opposite problem if we are to account for typological variations, where pro-drop languages are likely to have a smaller denominator, resulting in an undesired higher transitivity ratio. The pendular biases tempt us to simply drop the \textsc{nsubj} requirement in the denominator too, arriving at Def. 3, which appears to be an elegant and simple solution. That is, until we realize the verb instances where both subject and object are dropped would affect the denominator, and such usage, e.g., non-predicative usage of verbs, is unlikely to be equally frequent in different languages and would therefore interfere with the cross-lingual comparability of our transitivity ratio. Taking all these potential drawbacks into consideration, we propose Def. 4 with the number of verb instances with either an \textsc{nsubj} or an \textsc{obj} dependent in the denominator. 
 
-\begin{table}[ht]
-  \centering
-  \begin{tabularx}{0.5\textwidth}{cX}
-  {\#} & \textbf{Definition} \\
-  \hline
-  1&$[+\textsc{nsubj}, +\textsc{obj}]/ [+\textsc{subj}]$ \\
-  2&$[+\textsc{obj}] / [+\textsc{nsubj}]$  \\
-  3&$[+\textsc{obj}] / []$\\
-  4&$[+\textsc{obj}] / [+\textsc{nsubj}] \text{ or } [+\textsc{obj}]$
-  \end{tabularx}
-  \caption{Potential definitions of transitivity ratio considered in §\ref{sec:exp1}, represented with feature matrices}\label{tab:transitivity-defs}
-\end{table}
+\input{tables/transitivity_defs.tex}
 
-While we have a strong case for Def. 4 being the most principled definition, we nevertheless implement all four definitions in this experiment to empirically verify our intuitions. They are also represented with feature matrices in Tab.~\ref{tab:transitivity-defs} for quick reference. For the experiment, we go through all eligible UD corpora and compile transitivity ratio statistics for each lexeme and later summarizing the transitivity ratio statistics at a language-level.
+While we have a strong case for Def. 4 being the most principled definition, we nevertheless implement all four definitions in this experiment to empirically verify our intuitions. They are also represented with feature matrices in Tab.~\ref{tab:transitivity-defs} for quick reference.
+
+In the experiment, we go through all eligible UD corpora and first compile transitivity ratio statistics for each verb lexeme based on the definitions. From there, we compute the per-language statistics that will become the basis for our cross-lingual comparison: we calculate the lexeme-level and token-level transitivity ratios for each language, respectively the arithmetic mean of the lexeme transitivity ratios and the mean of lexeme transitivity ratios weighted by the frequency of the lexeme. In addition to our transitivity ratio metrics, we will also calculate an additional metric, percentage of transitive verbs, i.e., the percentage of verbs in the observed lexicon that are not strictly intransitive (defined as never observed to take an \textsc{obj}), which should correspond better with the traditional binary distinction between transitive and intransitive verbs.
 
 \subsection{Results}
 
-The full results from the experiments are included in the appendices. 
+\input{tables/transitivity_spearmanr.tex}
+
+We perform the experiment on the selected subset of UD data as described in §\ref{subsec:data_ud}. For the analysis, we include only languages with at least 100 observed verb lexemes (56 out of 79 languages); the full results from the experiments can be found in the accompanying data and appendices. 
+
+To compare between the different definitions of transitivity, we compute Spearman's rank correlations between the lexeme- and token-level means of transitivity ratios according to each of our four definitions, as well as between the transitive verb percentage and each of them. The correlation statistics are listed in Tab.~\ref{tab:transitivity_spearmanr}. We observe overall strong correlations between the mean transitivity ratios at lexeme- and token-levels for all four definitions, with the highest observed for definition 4 ($\rho(54)=.87, p=.000$) and lowest observed for definition 3 ($\rho(54)=.77, p=.000$). This is not surprising as we have no reason to expect the more frequent verbs to behave differently from the less frequent verbs with regard to transitivity ratios. This can be confirmed by correlation tests between verb frequency and verb transitivity ratios for each language, which show no strong correlation (the mean absolute value of the Spearman's rank correlations for the languages is 0.087).
+
+The correlation statistics between the transitive verb percentages and the transitivity ratios are slightly more revealing, if nothing else, they help us eliminate definition 2 from the competition as it shows no statistically significant correlation ($\rho(54)=-.17, p=.221$ for lexeme-level transitivity ratios and $\rho(54)=-.03, p=.817$ for token-level) while strong correlations are observed for all three other definitions (see Tab.~\ref{tab:transitivity_spearmanr}).
+
+In the absence of a strong empirical reason based on correlation statistics to select a definition among the remaining three over the others, we proceed with the rest of the analysis with results using def. 4, which we had considered \textit{a priori} to be the most principled.
+
+\input{tables/most_least_transitive_lang.tex}
+
 \todo{most transitive languages}
 \todo{least transitive languages}
 \todo{areal patterns and comparison against previous studies}
 
-\begin{figure}
+\begin{sidewaysfigure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figures/transitivity_europe.pdf}
   \caption{Mean transitivity ratios in languages of Europe}
   \label{fig:transitivity_europe}
-\end{figure}
+\end{sidewaysfigure}
 
 compare results with \citet{say2014} - same areal patterns
 
