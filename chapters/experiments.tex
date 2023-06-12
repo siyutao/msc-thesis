@@ -61,7 +61,7 @@ In the absence of a practical reason based on correlation statistics to select a
   \label{fig:verb_dist_transitivity}
 \end{sidewaysfigure}
 
-Most distributions are bimodal with peak at both ends, which supports overall cross-lingual validity of a binary conception of transitivity. But exceptions abound as well, among others Indonesian (unimodal with peak in the middle), Catalan, Galician, Spanish (unimodal with peak on right). And even between the bimodal distributions, we note that they are rarely symmetric, with differing levels of skew towards either end. 
+Most distributions are bimodal with peak at both ends, which supports the overall cross-lingual validity of a binary conception of transitivity. But exceptions abound as well, among others Indonesian (unimodal with peak in the middle), Catalan, Galician, Spanish (unimodal with peak on right). And even between the bimodal distributions, we note that they are rarely symmetric, with differing levels of skew towards either end. 
 
 \subsection{Genetic and areal patterns in transitivity}
 
@@ -88,28 +88,42 @@ Where the languages overlap, these observations match well with those from \cite
 % how "free" a language is to use tr. verb  intr./vice versa is another interesting further study 
 
 
-\section{Experiment 2: Valency entropy}
-\subsection{Motivation}
+\section{Experiment 2: Valency frame entropy}
+\subsection{Valency frame encoding in UD}
 
-% A valency frame is of course more complicated than transitivity.
+Psycholinguistic studies consistently show the effect of semantic and syntactic attributes of the verb on online sentence processing \citep{shapiro1987,collina2001}. More specifically, studies suggest that such attributes are organized in frames as opposed to parameters such as transitivity: e.g., \citet{shetreet2007}, an fMRI study in Hebrew, shows that the number of options in terms of subcategorization and thematic frames is better correlated to activity in the cortical areas that are associated with linguistic processing, as opposed to the number of complements.
 
-% Verb Shapiro et al. 1987; Collina et al. 2001
-% sentence processing is affected by semantic and syntactic attributes of the verbs 
-% Some fMRI study (Shetreet) suggests that number of options (in terms of subcategorization and thematic) is more correlated
+Besides the information about transitivity, UD annotations make available further information that are related to the morphosyntactic encoding of valency frame, including information about further dependents, word order, as well as case and adpositional markings. In this experiment, we make use of such information for a more fine-grained characterization of the variation in valency frame encoding for different verbs using entropy-based measures.
 
-% encoding devices cf ValPaL
+\begin{table}
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    \textbf{UD label} & \textbf{Dependent} \\
+    \midrule
+    \textsc{nsubj} & nominal subject \\
+    \textsc{obj} & object \\
+    \midrule
+    \textsc{obl} & oblique nominal \\
+    \textsc{iobj} & indirect object \\
+    \textsc{advmod} & adverbial modifier \\
+    \textsc{ccomp} & clausal complement \\
+    \textsc{xcomp} & open clausal complement \\
+    \textsc{advcl} & adverbial clause modifier \\
+    \bottomrule
+  \end{tabular}
+  \caption{UD dependent labels included in valency frame extraction}\label{tab:ud-dependent-labels}
+\end{table}
 
-% Within the UD
-% first the presence of the dependents in and of itself
-% second the word order information of the dependent 
-% third morphological annotation
+To compute the entropy measures, we need to first extract the \textbf{valency frame encoding} information from the UD annotations at a token level for each verb instance. The starting point of the extraction, based on the annotation guideline and linguistic knowledge, is a list of dependency relations as listed in Tab.~\ref{tab:ud-dependent-labels} that categorizes different syntactic dependencies. It is important to note that it is the universal taxonomy of the dependencies that servers as the cross-linguistic basis of comparison and that the name of the labels, while linguistically informed, do not affect the entropy calculation in the least. We also note our broad definition of valency, as we include so called non-core dependents (labels other than \textsc{nsubj}, \textsc{obj} in Tab.~\ref{tab:ud-dependent-labels}) as well. \todo{justification}
 
-% questionable about identity
+We extract information about (1) the presence or absence of dependency relations attached to a verb token, (2) the word order information, whether specific dependents precede or follow the head verb, and (3) morphological case marking on the dependents, if any.
 
-% used - morphosyntactic frames
 
-\subsection{Experiment design}
 
+\subsection{Valency frame entropy}
+
+We propose \textbf{valency frame entropy}, conditioned on the verb, as a measure of the variation of valency frame encoding for a verb. 
 
 % To reduce the effect of artifacts, we split each distribution randomly at a fixed ratio (e.g. $1:1$) into two, resulting in two distributions $X_1,\ldots,X_n$ and $X^{\prime}_{1},\ldots,X^{\prime}_{n}$. 
 
@@ -127,9 +141,9 @@ Where the languages overlap, these observations match well with those from \cite
 % -\sum\limits_{x_1\in{}\mathcal{X}_1}\cdots\sum\limits_{x_n\in{}\mathcal{X}_n}{P(x_1,\ldots,x_{n}|V=v)\log_{2}P^{\prime}(x_1,\ldots,x_n|V=v)}
 % $$
 
-\subsection{Results}
 
-% relationship
+\subsection{Core and non-core dependents}
+
 
 
 \begin{sidewaysfigure}[ht]
