@@ -80,7 +80,7 @@ Among the most transitive languages are Romance (Catalan, Spanish, French, Galic
 
 To look at any potential areal patterns in transitivity, we also map our token-level transitivity ratio results for European languages in Fig.~\ref{fig:transitivity_europe}. (A less Eurocentric study of areal patterns is unfortunately difficult for the lack of enough language samples in the UD.) We find a particularly high transitivity area in the Iberian peninsular as well as another relatively high transitivity area in the Balkans, in contrast to eastern and northern Europe with lower transitivity.
 
-Where the languages overlap, these observations match well with those from \citet{say2014}'s survey of transitivity in European languages (as measured by the percentage of verbs that are transitive from a predetermined list), who observed high transitivity areas in western Europe except Irish and south-western Balkans, and a corresponding low transitivity area in eastern Europe.
+Where the languages overlap, these observations match well with those from \citet{say2014}'s survey of transitivity in European languages (as measured by the percentage of verbs that are transitive from a fixed list), who observed high transitivity areas in western Europe except Irish and south-western Balkans, and a corresponding low transitivity area in eastern Europe.
 
 % Dutch appears to be a special case in several ways. \todo{case study: Dutch - divergence btwn two metrics, maybe due to ergative verbs? and diff btwn Dutch vs Afrikanns - significant grammatical differences?}
 
@@ -89,9 +89,16 @@ Where the languages overlap, these observations match well with those from \cite
 
 
 \section{Experiment 2: Valency frame entropy}
-\subsection{Valency frame encoding in UD}
+\subsection{Valency frame and the efficient organization of the lexicon}
+
+Cognitive linguists and typologists have increasingly sought to integrate the two approaches in the same functionalist research paradigm \citep{croft2016}. Among others is research that seeks to examine and explain language-internal and cross-linguistic features of human languages through the lens of communicative efficiency, at various levels including the lexicon, syntax and morphology (see \citealp{gibson2019} for a survey). 
+
+An early example where efficiency is used to explain phenomena in human languages is the work of George Kingsley \citet{zipf1935,zipf1949}. He first studied what is now known as Zipf's law, namely the empirical observation that ``the magnitude of words tends, on the whole, [stands] in an inverse (not necessarily proportionate) relationship to the number of occurrences'', and sought to explain it through the principle of least effort. A more recent body of work focuses on using information theory to show how the structure of human language reflects the need for efficient communication. \todo{citations re lexicon, dependency}
 
 Psycholinguistic studies consistently show the effect of semantic and syntactic attributes of the verb on online sentence processing \citep{shapiro1987,collina2001}. More specifically, studies suggest that such attributes are organized in frames as opposed to parameters such as transitivity: e.g., \citet{shetreet2007}, an fMRI study in Hebrew, shows that the number of options in terms of subcategorization and thematic frames is better correlated to activity in the cortical areas that are associated with linguistic processing, as opposed to the number of complements.
+
+
+\subsection{Measuring valency frame entropy in UD}
 
 Besides the information about transitivity, UD annotations make available further information that are related to the morphosyntactic encoding of valency frame, including information about further dependents, word order, as well as case and adpositional markings. In this experiment, we make use of such information for a more fine-grained characterization of the variation in valency frame encoding for different verbs using entropy-based measures.
 
@@ -121,27 +128,27 @@ We extract information about (1) the presence or absence of dependency relations
 
 \todo{example for what is to be extracted}
 
-\subsection{Valency frame entropy}
-
 We propose \textbf{valency frame entropy}, conditioned on the verb, as a measure of the variation of valency frame encoding for a verb. This is formalized as the joint entropy of the relevant UD dependency relations, i.e., number of bits needed to encode the entire valency frame.
 
 Let $X_1, X_2,\ldots,X_n$ be discrete random variables where each $X_k$ represents a UD dependency relation (e.g., \textsc{nsubj}, \textsc{obj}, \ldots). These variables have corresponding sample spaces (images? support?) $\mathcal{X}_1, \mathcal{X}_2, \ldots, \mathcal{X}_n$, which represent the possible levels or outcomes of each variable with regard to its presence, linearized order, and any case information.
 
 Additionally, let there be a variable $V$ that represents the choice of a verb from the lexicon $\mathcal{V}$. We are first interested in calculating the entropy of each dependency relation given a specific verb $v \in \mathcal{V}$. This is defined as:
 
-$$
-H(X_{k}|V=v)=
--\sum\limits_{x_{k}\in{}\mathcal{X}_{k}}{P(x_{k}|V=v)\log_{2}{P(x_{k}|V=v)}}
-$$
+\begin{equation*}
+  H(X_{k}|V=v)=
+  -\sum\limits_{x_{k}\in{}\mathcal{X}_{k}}{P(x_{k}|V=v)\log_{2}{P(x_{k}|V=v)}}  
+\end{equation*}
 
 Here, $P(x_k | V = v)$ represents the conditional probability of the outcome $x_k$ of the dependency relation $X_k$ given that the verb variable $V$ takes on the value $v$. The entropy of $X_k$ is calculated by summing the products of these probabilities with their logarithms (base 2) taken, each corresponding to a possible outcome $x_k$.
 
 The joint entropy of all dependent relations, denoted as $H_{\text{joint}}(X_1, X_2, \ldots, X_n | V = v)$, quantifies the uncertainty associated with the combined set of random variables $X_1, X_2, \ldots, X_n$, again given a specific value $v$ for the verb variable $V$. This is defined as:
 
-$$
-H_{\text{joint}}(X_1, X_2, \ldots, X_n | V=v) =
--\sum\limits_{x_1\in{}\mathcal{X}_1}\cdots\sum\limits_{x_n\in{}\mathcal{X}_n}{P(x_1, x_2, \ldots,x_{n}|V=v)\log_2P(x_1, x_2, \ldots,x_n|V=v)}
-$$
+\begin{equation*}
+\begin{split}
+ & H_{\text{joint}}(X_1, X_2, \ldots, X_n | V=v) \\
+=& -\sum\limits_{x_1\in{}\mathcal{X}_1}\cdots\sum\limits_{x_n\in{}\mathcal{X}_n}{P(x_1, x_2, \ldots,x_{n}|V=v)\log_2P(x_1, x_2, \ldots,x_n|V=v)}
+\end{split}
+\end{equation*}
 
 Here, $P(x_1, x_2, \ldots, x_n | V = v)$ represents the joint probability distribution of the outcomes $x_1, x_2, \ldots, x_n$ of the random variables $X_1, X_2, \ldots, X_n$, given that the verb variable $V$ takes on the value $v$. The joint entropy is calculated by summing the products of these joint probabilities with their logarithms (base 2) taken, each corresponding to a specific combination of outcomes $x_1, x_2, \ldots, x_n$.
 
