@@ -1,6 +1,6 @@
-\chapter{Experiments and analysis}
-\section{Experiment 1: Transitivity ratios}\label{sec:exp1}
-\subsection{From transitivity categories to transitivity ratios}
+\chapter{Comparing transitivity across languages}\label{chapter:transitivity}
+
+\section{From transitivity categories to transitivity ratios}
 Regardless of how we approach the task of verb classification, i.e., to categorize the verbs of a language into verb classes according to their syntacto-semantic properties and behavior, we would expect to arrive at fine-grained verb classes à la \citet{levin1993} in the end. But such an expectation does not render obsolete the cruder distinctions like that of verb \textit{transitivity}. In part, this is due to their utility as convenient starting points of comparison for verbs within a language, but their simplicity also translates to being more cross-lingually valid bases of typological comparison. 
 
 This first experiment deals with metrics of \textit{transitivity}, i.e., the ability of a verb to take one or more objects. It is surely a more familiar and intuitive concept as compared to the finer-grained metrics of valency to follow in the experiments. In traditional grammars, a basic binary distinction is made between \textit{intransitive} verbs, which take only a subject and no objects and \textit{transitive} verbs, which take one or more objects. Additional categories, some overlapping, make finer distinctions, such as \textit{ditransitive} verbs (those taking two objects), \textit{ambitransitive} verbs (those that can be used both transitively and intransitively), etc.
@@ -19,7 +19,11 @@ I focus here on the simple distinction between transitive and intransitive verbs
 
 This however belies their different usage patterns as observed in the BNC: while both uses are clearly grammatical for both verbs, \textit{begin} is used more often in a transitive frame than \textit{start} across different genres in the BNC: in fiction, 78\% of \textit{begin} occurrences (196/250) are with various transitive patterns vs. only 60\% for \textit{start} (149/250); transitive uses are less frequent in academic texts in general but the observation of relatively higher transitivity for \textit{begin} still holds (57\% vs. 36\%, or 110/192 vs. 51/142).
 
-To capture such differences in levels of transitivity, I propose measuring the \textbf{transitivity ratio} based on language corpora, defined as the percentage of verb instances that are transitive. The verbs of a language can then be placed on a spectrum of transitivity, with strictly intransitive verbs on the one end, strictly transitive verbs on the opposite end, and all other verbs\footnote{Note that not all of them are ambitransitive verbs, as my approach is only concerned with the surface realization of transitivity. In particular, this means instances of pro-drop of objects are counted as intransitive, where some would argument for a null object analysis instead.} somewhere in between.
+To capture such differences in levels of transitivity, I propose measuring the \textbf{transitivity ratio} based on language corpora, defined as the percentage of verb instances that are transitive. The verbs of a language can then be placed on a spectrum of transitivity, with strictly intransitive verbs on the one end, strictly transitive verbs on the opposite end, and all other verbs\footnote{Note that not all of them are ambitransitive verbs, as the approach here is only concerned with the surface realization of transitivity. In particular, this means instances of pro-drop of objects are counted as intransitive, where some would argument for a null object analysis instead.} somewhere in between.
+
+
+\section{Experiment 1:Token-level transitivity ratios}\label{sec:exp1}
+\subsection{Calculating transitivity ratio from UD}
 
 Necessarily then, and in contrast with transitivity categories, any values are calculated on an \textit{ad hoc} basis in a given corpus. Unless we expect the corpus to be a representative sample of all language use in that language, which is certainly not the case for the UD corpora used here, the absolute values of these ratios at a lexeme-level cannot be directly interpreted. Instead, intralinguistic analysis will take the form of analyzing the distribution of verbs according to their observed transitivity ratios. I take on an additional assumption, that the corpus would reflect the general tendency towards (in-)transitivity of the language, if too piecemeal for individual verbs, which justifies the cross-lingual comparison of transitivity ratios at a token-level as well.
 
@@ -89,115 +93,3 @@ Where the languages overlap, these observations match well with those from \cite
 % diff between tr. verb -> token-level tr. ratio reflects also the fact that tr. verbs can often be used intransitively
 % how "free" a language is to use tr. verb  intr./vice versa is another interesting further study 
 
-
-\section{Experiment 2: Valency frame entropy}
-\subsection{Valency frame and the efficient organization of the lexicon}
-
-Cognitive linguists and typologists have increasingly sought to integrate the two approaches in the same functionalist research paradigm \citep{croft2016}. Among others is research that seeks to examine and explain language-internal and cross-linguistic features of human languages through the lens of communicative efficiency, at various levels including the lexicon, syntax and morphology (see \citealp{gibson2019} for a survey). 
-
-An early example where efficiency is used to explain phenomena in human languages is the work of George Kingsley \citet{zipf1935,zipf1949}. He first studied what is now known as Zipf's law, namely the empirical observation that ``the magnitude of words tends, on the whole, [stands] in an inverse (not necessarily proportionate) relationship to the number of occurrences'', and sought to explain it through the principle of least effort. 
-
-\citet{marslen-wilson1990,segui1982}
-Psycholinguistic studies consistently show the effect of semantic and syntactic attributes of the verb on online sentence processing \citep{shapiro1987,collina2001}. 
-
-However, results disagree whether subcategorization (syntactic) or thematic frames (semantic) has a greater effect on lexical processing. \citet{shapiro1987} reported that RTs for lexical decisions increased as the function of the number of thematic options instead of subcategorization options. In contrast, \citet{shetreet2007} reported on an fMRI study on Hebrew speakers, shows that the number of options in terms of subcategorization and thematic frames is better correlated to activity in the cortical areas that are associated with linguistic processing, as opposed to the number of complements or thematic frames.
-
-
-\subsection{Measuring valency frame entropy in UD}
-
-Besides the information about transitivity, UD annotations make available further information that are related to the morphosyntactic encoding of valency frame, including information about further dependents, word order, as well as case and adpositional markings. In this experiment, we make use of such information for a more fine-grained characterization of the variation in valency frame encoding for different verbs using entropy-based measures.
-
-\begin{table}
-  \centering
-  \begin{tabular}{ll}
-    \toprule
-    \textbf{UD label} & \textbf{Dependent} \\
-    \midrule
-    \textsc{nsubj} & nominal subject \\
-    \textsc{obj} & object \\
-    \textsc{csubj} & clausal subject \\
-    \textsc{ccomp} & clausal complement \\
-    \textsc{xcomp}   & open clausal complement \\
-    \midrule
-    \textsc{iobj} & indirect object \\
-    \textsc{obl} & oblique nominal \\
-    \textsc{expl} & expletive \\
-    \textsc{advmod} & adverbial modifier \\
-    \textsc{advcl} & adverbial clause modifier \\
-    \bottomrule
-  \end{tabular}
-  \caption{UD dependent labels included in valency frame extraction}\label{tab:ud-dependent-labels}
-\end{table}
-
-To compute the entropy measures, we need to first extract the \textbf{valency frame encoding} information from the UD annotations at a token level for each verb instance. We start by determining the scope of our investigation and select a list of dependency relations in Tab.~\ref{tab:ud-dependent-labels} which categorizes different syntactic dependencies that can be attached to the verb. These include core dependents, namely \textsc{nsubj} and \textsc{obj}, but also so-called non-core dependents as well. \todo{justification for that: syntactic classification of verb using non-core information, cite previous work} It is important to note here that it is the cross-lingual taxonomy of the dependencies that serves as the cross-linguistic basis of comparison and that the name of the labels, while linguistically informed, do not affect the entropy calculation in any way.
-
-We extract information about (1) the presence or absence of dependency relations attached to a verb token, (2) the word order information, whether specific dependents precede or follow the head verb, and (3) morphological case marking on the dependents, if any.
-
-\todo{example for what is to be extracted}
-
-We propose \textbf{valency frame entropy}, conditioned on the verb, as a measure of the variation of valency frame encoding for a verb. This is formalized as the joint entropy of the relevant UD dependency relations, i.e., number of bits needed to encode the entire valency frame.
-
-Let $X_1, X_2,\ldots,X_n$ be discrete random variables where each $X_k$ represents a UD dependency relation (e.g., \textsc{nsubj}, \textsc{obj}, \ldots). These variables have corresponding sample spaces (images? support?) $\mathcal{X}_1, \mathcal{X}_2, \ldots, \mathcal{X}_n$, which represent the possible levels or outcomes of each variable with regard to its presence, linearized order, and any case information.
-
-Additionally, let there be a variable $V$ that represents the choice of a verb from the lexicon $\mathcal{V}$. We are first interested in calculating the entropy of each dependency relation given a specific verb $v \in \mathcal{V}$. This is defined as:
-
-\begin{equation*}
-  H(X_{k}|V=v)=
-  -\sum\limits_{x_{k}\in{}\mathcal{X}_{k}}{P(x_{k}|V=v)\log_{2}{P(x_{k}|V=v)}}  
-\end{equation*}
-
-Here, $P(x_k | V = v)$ represents the conditional probability of the outcome $x_k$ of the dependency relation $X_k$ given that the verb variable $V$ takes on the value $v$. The entropy of $X_k$ is calculated by summing the products of these probabilities with their logarithms (base 2) taken, each corresponding to a possible outcome $x_k$.
-
-The joint entropy of all dependent relations, denoted as $H_{\text{joint}}(X_1, X_2, \ldots, X_n | V = v)$, quantifies the uncertainty associated with the combined set of random variables $X_1, X_2, \ldots, X_n$, again given a specific value $v$ for the verb variable $V$. This is defined as:
-
-\begin{equation*}
-\begin{split}
- & H_{\text{joint}}(X_1, X_2, \ldots, X_n | V=v) \\
-=& -\sum\limits_{x_1\in{}\mathcal{X}_1}\cdots\sum\limits_{x_n\in{}\mathcal{X}_n}{P(x_1, x_2, \ldots,x_{n}|V=v)\log_2P(x_1, x_2, \ldots,x_n|V=v)}
-\end{split}
-\end{equation*}
-
-Here, $P(x_1, x_2, \ldots, x_n | V = v)$ represents the joint probability distribution of the outcomes $x_1, x_2, \ldots, x_n$ of the random variables $X_1, X_2, \ldots, X_n$, given that the verb variable $V$ takes on the value $v$. The joint entropy is calculated by summing the products of these joint probabilities with their logarithms (base 2) taken, each corresponding to a specific combination of outcomes $x_1, x_2, \ldots, x_n$.
-
-% To reduce the effect of artifacts, we split each distribution randomly at a fixed ratio (e.g. $1:1$) into two, resulting in two distributions $X_1,\ldots,X_n$ and $X^{\prime}_{1},\ldots,X^{\prime}_{n}$. 
-
-% For each of the argument slot, the cross-entropy between the distributions $X_k$ and $X_k^{\prime}$ with the same image $\mathcal{X}_{k}$ is
-
-% $$
-% H_{cross}{(X_k,X_k^{\prime}|V=v)}=
-% -\sum\limits_{x\in{}\mathcal{X_{k}}}{P(x|V=v)\log_{2}{P^{\prime}(x|V=v)}}
-% $$
-
-% And the joint cross-entropy of  $X_1,\ldots,X_n$ and $X_1^{\prime},\ldots,X_n^{\prime}$ would be
-
-% $$
-% H_{joint-cross}(X_{1},\ldots,X_{n},X_{1}^{\prime},\ldots,X_{n}^{\prime}|V=v)=
-% -\sum\limits_{x_1\in{}\mathcal{X}_1}\cdots\sum\limits_{x_n\in{}\mathcal{X}_n}{P(x_1,\ldots,x_{n}|V=v)\log_{2}P^{\prime}(x_1,\ldots,x_n|V=v)}
-% $$
-
-
-\subsection{Core and non-core dependents}
-
-
-
-\begin{sidewaysfigure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{figures/joint_entropy_freq.pdf}
-  \caption{Scatter plots showing relationship between valency frame entropy and frequency rank of verbs, color shows number of frames associated with the verb}
-  \label{fig:joint_entropy_freq}
-\end{sidewaysfigure}
-
-\section{Experiment 3: Word order and case information}
-\subsection{Motivation}
-\subsection{Experiment design: ablation studies}
-\subsection{Results}
-
-\section{Experiment 4: Verb entropy}
-\subsection{Motivation}
-\subsection{Experiment design}
-\subsection{Results}
-
-\section{Experiment 5: Verb-finalness}
-\subsection{Motivation}
-\subsection{Experiment design}
-\subsection{Results}
