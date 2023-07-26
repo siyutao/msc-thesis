@@ -1,11 +1,13 @@
-\chapter{Data selection}
+\chapter{Data selection}\label{chapter:data}
 
 \section{Data sources}\label{sec:data}
 
 \subsection{Universal Dependencies}\label{subsec:data_ud}
 
 
-\textbf{Universal Dependencies (UD)} is the main source of primary data used for the present study. It is designed to be a cross-linguistically consistent system for annotating morphosyntactic information within a dependency grammar framework \citep{demarneffe2021}. 
+Universal Dependencies (UD) treebanks, a multilingual collection of dependency treebanks based on a shared, cross-lingually consistent annotation scheme \citep{nivre2020} and covering 138 languages with 243 treebanks in its most recent \texttt{v2.11} release \citep{universaldep}, have enabled significant advances in the development of multilingual dependency parsers and other NLP technologies \citep{zeman2017, zeman2018}. This proposed thesis will explore their potential in typology research through a cross-lingual quantitative study of verbal valency systems.
+
+\textbf{Universal Dependencies (UD)} is the main source of primary data used for the present study. It is designed as a cross-linguistically consistent system for annotating morphosyntactic information within a dependency grammar framework \citep{demarneffe2021}. 
 
 The v2 update to the UD annotation guidelines also introduced changes that intend to decrease the reliance on language-specific categories \citep{nivre2020}. Inevitably, these efforts had to be balanced against the practicality of computational efficiency but nevertheless converged in many cases with proposals by typologists, as the core principles converged with a functional typology approach. \citet{croft2017}
 
@@ -26,27 +28,27 @@ The thesis uses the UD v2.11 release.
 
 In additional to the main data source of UD treebanks, additional resources will be used in the study as reference and to perform validation and evaluation of the intermediate results. As an example, the valency frames and verb classes as induced from the UD treebanks will be validated, where possible, against the expert-annotated data from \textbf{the Valency Patterns Leipzig Online Database (ValPaL)} \citep{valpal}. Other datasets will be introduced as necessary.
 
-\section{Representing verb instances}
+% \section{Representing verb instances}
 
-In the first step, the specific uses of verbs are abstracted through a feature selection process. Each instance of verb use will be represented by the morphosyntactic features of the sentence, namely only features that are considered part of valency frame encoding are included. This is in order to focus on whether semantically coherent verb classes can be induced from valency frame information alone. In selecting the features, cross-lingual differences in valency frame coding will be taken into account, e.g., whether a language uses morphological cases or word order to encode valency frame information. Word order information, although not explicitly specified in UD, should also be extracted from the dataset. An alternative approach considered is to keep manual feature selection at a minimum and to allow the clustering algorithms to weigh the features as needed.
+% In the first step, the specific uses of verbs are abstracted through a feature selection process. Each instance of verb use will be represented by the morphosyntactic features of the sentence, namely only features that are considered part of valency frame encoding are included. This is in order to focus on whether semantically coherent verb classes can be induced from valency frame information alone. In selecting the features, cross-lingual differences in valency frame coding will be taken into account, e.g., whether a language uses morphological cases or word order to encode valency frame information. Word order information, although not explicitly specified in UD, should also be extracted from the dataset. An alternative approach considered is to keep manual feature selection at a minimum and to allow the clustering algorithms to weigh the features as needed.
 
-\section{Clustering}
+% \section{Clustering}
 
-The clustering process after feature selection consists of two steps, but the clustering algorithms used need not be the same. The first is the automatic induction of valency frames in a language given the selected features and the second is the clustering of verbs, represented by their distribution over the valency frames, into verb classes. Since unsupervised clustering will be used, the number of valency frames and the number of verb classes cannot be assumed \textit{a priori}. This requires either using algorithms that do not require a predefined number of clusters (e.g., Ward clustering), or experimenting with cluster sizes with each language (cf. \cite{schulteimwalde2006}, which used the k-means algorithm with a predefined the gold standard number). Due to the lack the gold standard for many of the languages to be experimented on, the former seems preferable. A bottom-up agglomerative clustering method will also be favored over top-down methods.
+% The clustering process after feature selection consists of two steps, but the clustering algorithms used need not be the same. The first is the automatic induction of valency frames in a language given the selected features and the second is the clustering of verbs, represented by their distribution over the valency frames, into verb classes. Since unsupervised clustering will be used, the number of valency frames and the number of verb classes cannot be assumed \textit{a priori}. This requires either using algorithms that do not require a predefined number of clusters (e.g., Ward clustering), or experimenting with cluster sizes with each language (cf. \cite{schulteimwalde2006}, which used the k-means algorithm with a predefined the gold standard number). Due to the lack the gold standard for many of the languages to be experimented on, the former seems preferable. A bottom-up agglomerative clustering method will also be favored over top-down methods.
 
-Given the relative low dimensionality of hand-selected features, complex clustering algorithms are not anticipated to be necessary. Nevertheless, more modern clustering algorithms should also be investigated \citep{xu2015a}. Given the two levels of clustering, one method to be considered for the verb class induction is the Hierarchical Dirichlet process, which is particularly suited for clustering grouped data (cf. \citet{parisien2010}, Fig.~\ref{fig:parisien2010}, where a Hierarchical Dirichlet process was extended to account for diathesis alternations).
-·
-\begin{figure}
-    \includegraphics[width=\textwidth]{figures/verb_alternation_classes.png}
-    \centering
-    \caption{(a) Model 1, a Hierarchical Dirichlet Process applied to learning verb argument structure constructions. (b) Model 2,
-    an extension of Model 1 to learn verb alternation classes.}\label{fig:parisien2010}
-\end{figure}
+% Given the relative low dimensionality of hand-selected features, complex clustering algorithms are not anticipated to be necessary. Nevertheless, more modern clustering algorithms should also be investigated \citep{xu2015a}. Given the two levels of clustering, one method to be considered for the verb class induction is the Hierarchical Dirichlet process, which is particularly suited for clustering grouped data (cf. \citet{parisien2010}, Fig.~\ref{fig:parisien2010}, where a Hierarchical Dirichlet process was extended to account for diathesis alternations).
+% ·
+% \begin{figure}
+%     \includegraphics[width=\textwidth]{figures/verb_alternation_classes.png}
+%     \centering
+%     \caption{(a) Model 1, a Hierarchical Dirichlet Process applied to learning verb argument structure constructions. (b) Model 2,
+%     an extension of Model 1 to learn verb alternation classes.}\label{fig:parisien2010}
+% \end{figure}
 
-\section{Cross-lingual verb sense alignment}
+% \section{Cross-lingual verb sense alignment}
 
-A cross-lingual aligned list of counterpart verbs will be needed to compare the verb classes. The easiest way to do this is likely through existing cross-lingual word lists such as LanguageNet, part of the PanLex project \citep{kamholz2014}. However, multilingual word embeddings and induction of a cross-lingual verbal lexicon could be considered as another option should the existing resources prove insufficient.
+% A cross-lingual aligned list of counterpart verbs will be needed to compare the verb classes. The easiest way to do this is likely through existing cross-lingual word lists such as LanguageNet, part of the PanLex project \citep{kamholz2014}. However, multilingual word embeddings and induction of a cross-lingual verbal lexicon could be considered as another option should the existing resources prove insufficient.
 
-\section{Information theory metrics}
+% \section{Information theory metrics}
 
-The specific metrics to be used on the results will have to be determined in combination with the decisions to be made in the experiments such as the number of the language studied and whether parallel or non-parallel datasets are used. Preliminarily, however, information theory metrics modeled on those used by \citet{say2014} are considered, specifically an internal complexity metric measuring the entropy of the distribution of verbs among valency classes and a similarity metric based on mutual information measuring the similarity / dissimilarity between valency systems of two or more languages.
+% The specific metrics to be used on the results will have to be determined in combination with the decisions to be made in the experiments such as the number of the language studied and whether parallel or non-parallel datasets are used. Preliminarily, however, information theory metrics modeled on those used by \citet{say2014} are considered, specifically an internal complexity metric measuring the entropy of the distribution of verbs among valency classes and a similarity metric based on mutual information measuring the similarity / dissimilarity between valency systems of two or more languages.
