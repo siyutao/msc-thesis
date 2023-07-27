@@ -1,8 +1,8 @@
 \chapter{Entropy-based measures of verbal valency}\label{chapter:entropy}
 
-While the previous chapter has demonstrated that corpus-based transitivity ratios can serve a useful basis for typological comparison, it is still is a relatively simple metric that captures but one aspect of verbal valency. Put another way, transitivity ratio is a subset of the scope needed to investigate verbal valency, as it concerns only one type of verb dependent, i.e., the object, and one feature of this dependent, i.e., its presence or absence. 
+While the previous chapter has demonstrated that corpus-based transitivity ratios can serve as a useful basis for typological comparison, it is still is a relatively simple metric that captures one aspect of verbal valency. Put another way, transitivity ratio can be seen as a subset of the scope needed for a more holistic investigation into verbal valency, as it concerns only one type of verb dependent, i.e., the object, and one feature of this dependent, i.e., its presence or absence. 
 
-This chapter undertakes to expand the scope of investigation accordingly, to cover both more verb dependent types and more features of them. Instead of performing exhaustive comparisons on each individual feature of each dependent, the focus is instead on measuring the alternations of valency frames (diathesis alternations), i.e., range of the valency frames in which a verb appears and how often it appears with them. To that end, I propose novel metrics of verbal valency based on entropy, a concept from information theory that quantifies the average amount of information expected from a variable, and look at whether it reflects universals of how languages structure their verbal lexicons.
+This chapter undertakes to expand the scope of investigation accordingly, to cover both more verb dependent types and more features of them. Instead of performing exhaustive comparisons on each individual feature of each dependent, the focus is instead on measuring the alternations of valency frames (diathesis alternations), i.e., range of the valency frames in which a verb appears and how often it appears with them. To that end, I propose new metrics of verbal valency based on entropy, a concept from information theory that quantifies the average amount of surprisal expected from a variable, and look at whether it reflects universals of how languages structure their verbal lexicons.
 
 % In §X, valency frame entropy conditioned on the verb is calculated to measure ; §X, ablation study to see how different aspects of valency frame encoding contribute; in §X, the reverse verb entropy conditioned on the frame is calculated as a symmetric check on the measures. 
 
@@ -10,16 +10,17 @@ This chapter undertakes to expand the scope of investigation accordingly, to cov
 
 Cognitive linguists and typologists have increasingly sought to integrate the two approaches in the same functionalist research paradigm \citep{croft2016}. Among others is research that seeks to examine and explain language-internal and cross-linguistic features of human languages through the lens of communicative efficiency, at various levels including the lexicon, syntax and morphology (see \citealp{gibson2019} for a survey). 
 
-An early example where efficiency is used to explain phenomena in human languages is the work of George Kingsley \citet{zipf1935,zipf1949}. He first studied what is now known as Zipf's law, namely the empirical observation that ``the magnitude of words tends, on the whole, [stands] in an inverse (not necessarily proportionate) relationship to the number of occurrences'', and sought to explain it through the principle of least effort. This observation has been corroborated in psycholinguistic studies which show a consistent ``frequency effect'' for both open and closed class word \citep{segui1982,marslen-wilson1990}, where more frequently occurring words have a higher resting activation, making their lexical retrieval easier. 
+An early example where efficiency is used to explain phenomena in human languages is the work of George Kingsley \citet{zipf1935,zipf1949}. He first studied what is now known as Zipf's law, the empirical observation of the negative correlation between word length and frequency, that ``the magnitude of words tends, on the whole, [stands] in an inverse (not necessarily proportionate) relationship to the number of occurrences'', and sought to explain it through the principle of least effort.
 
-That the most frequent lexical items are also more likely to be associated with irregularity is not surprising. This correlation between frequency and irregularity has most often been hypothesized and studied for morphology \citet{wu2019}. Already \citet{bybee1998} postulates a trade-off in the lexical memory that ``being easier to access, they are less likely to be replaced by regular formations''. The same trade-off would lead us to predict a similar relationship between the frequency of a verb and its associated morphosyntactic valency frame as well.
+Frequency is a particularly frequent lens through which the lexicon is examined and the correlation between frequency and other features often subjects of hypotheses. Its importance has been further underlined by psycholinguistic studies which show a consistent ``frequency effect'' for both open and closed class word \citep{segui1982,marslen-wilson1990}, where more frequently occurring words have a higher resting activation, making their lexical retrieval easier. That the most frequent lexical items are also more likely to be associated with irregularity is not surprising. This correlation between frequency and irregularity has most often been hypothesized and studied for morphology \citet{wu2019}. \citet{bybee1998} considers lexicon from a learnability perspective and postulates a trade-off in the lexical memory that ``being easier to access, they are less likely to be replaced by regular formations''. 
 
-This is particularly true as psycholinguistic studies have also consistently shown the effect of semantic and syntactic attributes of the verb on online sentence processing \citep{shapiro1987,collina2001}. However, results differ on whether subcategorization (syntactic), thematic frames (semantic) or both have an effect on lexical processing. \citet{shapiro1987} reported that RTs for lexical decisions increased as the function of the number of thematic options instead of subcategorization options. In contrast, \citet{shetreet2007} reported on an fMRI study on Hebrew speakers, shows that the number of options in terms of subcategorization and thematic frames is better correlated to activity in the cortical areas that are associated with linguistic processing, as opposed to the number of complements or thematic frames. \todo{this section needs rework}
+When it comes to verbal valency, psycholinguistic studies have also consistently shown the effect of semantic and syntactic attributes of the verb on online sentence processing \citep{shapiro1987,collina2001}. Results differ on whether subcategorization (syntactic), thematic frames (semantic) or both have an effect on lexical processing. \citet{shapiro1987} reported that RTs for lexical decisions increased as the function of the number of thematic options instead of subcategorization options. In contrast, \citet{shetreet2007} reported on an fMRI study on Hebrew speakers, shows that the number of options in terms of subcategorization and thematic frames is better correlated to activity in the cortical areas that are associated with linguistic processing, as opposed to the number of complements or thematic frames.
 
-\section{Experiment 2: Valency frame entropy}
-\subsection{Measuring valency frame entropy in UD}
+In the following experiments, I will test a few hypotheses between frequency metrics on the one hand and entropy metrics on the other hand and show that, regardless of the theoretical stance, how a language structures it valency system reflects trade-offs predicted by considerations of efficiency and learnability.
 
-Besides the information about transitivity, UD annotations make available further information that are related to the morphosyntactic encoding of valency frame, including information about further dependents, word order, as well as case and adpositional markings. In this experiment, we make use of such information for a more fine-grained characterization of the variation in valency frame encoding for different verbs using entropy-based measures.
+\section{Extracting valency frames from UD}
+
+Besides the information about transitivity, UD annotations make available further information that are related to the morphosyntactic encoding of valency frame, including information about further dependents, word order, as well as case and adpositional markings. In the following experiments, I make use of this information for a more fine-grained characterization of the variation in valency frame encoding for different verbs using entropy-based measures.
 
 \begin{table}
   \centering
@@ -43,15 +44,23 @@ Besides the information about transitivity, UD annotations make available furthe
   \caption{UD dependent labels included in valency frame extraction}\label{tab:ud-dependent-labels}
 \end{table}
 
-To compute the entropy measures, we need to first extract the \textbf{valency frame encoding} information from the UD annotations at a token level for each verb instance. We start by determining the scope of our investigation and select a list of dependency relations in Tab.~\ref{tab:ud-dependent-labels} which categorizes different syntactic dependencies that can be attached to the verb. These include core dependents, namely \textsc{nsubj} and \textsc{obj}, but also so-called non-core dependents as well. \todo{justification for that: syntactic classification of verb using non-core information, cite previous work} It is important to note here that it is the cross-lingual taxonomy of the dependencies that serves as the cross-linguistic basis of comparison and that the name of the labels, while linguistically informed, do not affect the entropy calculation in any way.
+To compute the entropy measures,  \textbf{valency frame encoding} information must first be extracted from the UD annotations at a token level for each verb instance. I start by determining the scope of the investigation and select a list of dependency relations in Tab.~\ref{tab:ud-dependent-labels} which categorizes different syntactic dependencies that can be attached to the verb. These include core dependents, including nominal subject, object and their clausal counterparts, as well as so-called non-core dependents, such as indirect object, adverbial modifier and expletive. \todo{justification for including non-core dependents: syntactic classification of verb using non-core information, cite previous work} It is important to note here that it is the cross-lingual taxonomy of the dependencies that serves as the cross-linguistic basis of comparison and that the name of the labels, while linguistically informed, do not affect the entropy calculation in any way.
 
-We extract information about (1) the presence or absence of dependency relations attached to a verb token, (2) the word order information, whether specific dependents precede or follow the head verb, and (3) morphological case marking on the dependents, if any.
+I extract information about (1) the presence or absence of dependency relations attached to a verb token, (2) the word order information, whether specific dependents precede or follow the head verb, and (3) morphological case marking on the dependents, if any.
 
-\todo{example for what is to be extracted}
+\todo{some concrete examples for what is to be extracted}
 
-We propose \textbf{valency frame entropy}, conditioned on the verb, as a measure of the variation of valency frame encoding for a verb. This is formalized as the joint entropy of the relevant UD dependency relations, i.e., number of bits needed to encode the entire valency frame.
+\section{Experiment 2: Frequency correlation with valency frame entropy}
 
-Let $X_1, X_2,\ldots,X_n$ be discrete random variables where each $X_k$ represents a UD dependency relation (e.g., \textsc{nsubj}, \textsc{obj}, \ldots). These variables have corresponding sample spaces (images? support?) $\mathcal{X}_1, \mathcal{X}_2, \ldots, \mathcal{X}_n$, which represent the possible levels or outcomes of each variable with regard to its presence, linearized order, and any case information.
+\subsection{Experiment setup}
+
+I propose a \textbf{valency frame entropy} metric, conditioned on the verb, that measures the average amount of surprisal, i.e., uncertainty, associated with the valency frame alternation for a verb, and hypothesize a positive correlation between a verb's frequency and the valency frame entropy conditioned on it that should hold across languages. In other words, the more frequent a verb is, the more information one can expect on average from its valency frames.
+
+A learnability perspective on the lexicon provides one motivation behind the hypothesis, analogous to correlation between word frequency and irregularity in morphological patterns. Taking the view that the lexicon is acquired from linguistic experience, more exposure to and access of the more frequent words leads to higher resting activation (cf. \citealp*{bybee1998}), therefore allowing for more complexity or uncertainty being retained in the lexicon.
+
+The valency frame entropy is formalized as the joint entropy of the relevant UD dependency relations, i.e., number of bits needed to encode the entire valency frame.
+
+Let $X_1, X_2,\ldots,X_n$ be discrete random variables where each $X_k$ represents a UD dependency relation (e.g., \textsc{nsubj}, \textsc{obj}, \ldots). These variables have corresponding sample spaces $\mathcal{X}_1, \mathcal{X}_2, \ldots, \mathcal{X}_n$, which represent the possible levels or outcomes of each variable with regard to its presence, linearized order, and any case information.
 
 Additionally, let there be a variable $V$ that represents the choice of a verb from the lexicon $\mathcal{V}$. We are first interested in calculating the entropy of each dependency relation given a specific verb $v \in \mathcal{V}$. This is defined as:
 
@@ -89,15 +98,11 @@ H_{joint-cross}(X_{1},\ldots,X_{n},X_{1}^{\prime},\ldots,X_{n}^{\prime}|V=v)=
 -\sum\limits_{x_1\in{}\mathcal{X}_1}\cdots\sum\limits_{x_n\in{}\mathcal{X}_n}{P(x_1,\ldots,x_{n}|V=v)\log_{2}P^{\prime}(x_1,\ldots,x_n|V=v)}
 $$
 
-\subsection{Correlation between frequency and valency frame entropy}
+\subsection{Results}
 
 The correlation between verb frequency and valency frame entropy as conditioned on it is assessed using Spearman's rank correlation coefficient \citep{spearman1904}, which measures the correlation between two rank variables. 
 
-interpreting the strength of the correlation \citep{schober2018}
-
-\subsection{Core and non-core dependents}
-
-In particular, we would like to compare the strength of the correlation when calculating the entropy using core and non-core dependents. This is assessed using the conditional entropy
+Citation for interpreting the strength of the correlation \citep{schober2018}
 
 \begin{sidewaysfigure}[ht]
   \centering
@@ -106,8 +111,14 @@ In particular, we would like to compare the strength of the correlation when cal
   \label{fig:joint_entropy_freq}
 \end{sidewaysfigure}
 
-\section{Experiment 3: Word order and case information}
+\subsection{Analysis}
 
-\section{Experiment 4: Verb entropy}
+\section{Experiment 3: Ablation study of word order and case information}
+\subsection{Experiment setup}
+\subsection{Results}
+\subsection{Analysis}
 
-\section{Experiment 5: Verb-finalness}
+\section{Experiment 4: Frequency correlation with verbal entropy}
+\subsection{Experiment setup}
+\subsection{Results}
+\subsection{Analysis}
