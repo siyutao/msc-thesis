@@ -82,7 +82,7 @@ The \textbf{valency frame entropy} is formalized as the joint entropy of the rel
 
 Here, $P(x_1, x_2, \ldots, x_n | V = v)$ represents the joint probability distribution of the outcomes $x_1, x_2, \ldots, x_n$ of the random variables $X_1, X_2, \ldots, X_n$, given that the verb variable $V$ takes on the value $v$. The joint entropy is calculated by summing the products of these joint probabilities with their logarithms (base 2) taken, each corresponding to a specific combination of outcomes $x_1, x_2, \ldots, x_n$.
 
-In practice, for this study, the valency frame entropy is calculated as cross-entropy, following other studies using entropy measures \citep{hahn2021} in an effort to reduce artifacts. Treebanks of the same langauge are combined and then split into randomly into two halves, resulting in two sets of distributions $X_1,\ldots,X_n$ and $X_1^{\prime},\ldots,X_n^{\prime}$. It follows that the joint cross-entropy between them is:
+In practice, for this study, the valency frame entropy is calculated as cross-entropy, following other studies using entropy measures \citep{hahn2021} in an effort to reduce artifacts. Treebanks of the same language are combined and then split randomly into two halves, resulting in two sets of distributions $X_1,\ldots,X_n$ and $X_1^{\prime},\ldots,X_n^{\prime}$. It follows that the joint cross-entropy between them is:
 
 \begin{equation*}
   \begin{split}
@@ -91,11 +91,15 @@ In practice, for this study, the valency frame entropy is calculated as cross-en
   \end{split}
 \end{equation*}
   
-The difference is that the probabilities and their logarithms are taken from the two different distributions with the same image. Add-one smoothing is used to prevent fringe cases where a frame is observed in only one of the two distributions.
+The difference from the standard entropy measure is that the probabilities and their logarithms are estimated from the two different distributions with the same image. Add-one smoothing is used to prevent fringe cases where a frame is observed in only one of the two distributions.
 
 The correlation between verb frequency and valency frame entropy as conditioned on it is assessed using Spearman's rank correlation coefficient \citep{spearman1904}, which measures the correlation between two rank variables. 
 
 \subsection{Results}
+
+- correlation results - subsampling  
+The correlation results are included in the appendix.
+
 
 \todo{Add correlations strength results} 
 
