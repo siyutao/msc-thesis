@@ -22,7 +22,8 @@ In the following experiments, I will test a few hypotheses between frequency met
 
 \section{Extracting valency frame encoding from UD}\label{sec:valency-frame-encoding}
 
-As briefly discussed in the data chapter, UD annotations make available further information that are related to the morphosyntactic encoding of valency frame, beyond. The following experiments in this chapter make use of this information , I make use of this information for a more fine-grained characterization of the variation in valency frame encoding for different verbs using entropy-based measures.
+As briefly discussed in the data chapter, UD annotations make available a range of information related to the morphosyntactic encoding of valency frame, beyond the transitivity information that we have already used. The following experiments in this chapter make use of this for a more fine-grained characterization of the variation in valency frame encoding for different verbs using entropy-based measures. To do so, \textbf{valency frame encoding}, i.e., the scope of the morphosyntactic features that compose a valency frame, must first be extracted from the UD annotations so that variation patterns can be consistently captured. The extraction procedures are described in this section.
+\subsection{Dependency relations}
 
 \begin{table}
   \centering
@@ -30,34 +31,33 @@ As briefly discussed in the data chapter, UD annotations make available further 
     \toprule
     \textbf{UD label} & \textbf{Dependent} \\
     \midrule
+    \multicolumn{2}{l}{\textit{core arguments}} \\
     \textsc{nsubj} & nominal subject \\
     \textsc{obj} & object \\
     \textsc{csubj} & clausal subject \\
     \textsc{ccomp} & clausal complement \\
     \textsc{xcomp}   & open clausal complement \\
-    \midrule
     \textsc{iobj} & indirect object \\
+    \midrule
+    \multicolumn{2}{l}{\textit{non-core dependents}} \\
     \textsc{obl} & oblique nominal \\
     \textsc{expl} & expletive \\
     \textsc{advmod} & adverbial modifier \\
     \textsc{advcl} & adverbial clause modifier \\
     \bottomrule
   \end{tabular}
-  \caption{UD dependent labels included in valency frame extraction}\label{tab:ud-dependent-labels}
+  \caption{UD dependency relation labels included in valency frame extraction}\label{tab:ud-dependent-labels}
 \end{table}
 
-To compute the entropy measures,  \textbf{valency frame encoding} information must first be extracted from the UD annotations at a token level for each verb instance. I start by determining the scope of the investigation and select a list of dependency relations in Tab.~\ref{tab:ud-dependent-labels} which categorizes different syntactic dependencies that can be attached to the verb. These include core dependents, including nominal subject, object and their clausal counterparts, as well as so-called non-core dependents, such as indirect object, adverbial modifier and expletive. \todo{justification for including non-core dependents: syntactic classification of verb using non-core information, cite previous work} It is important to note here that it is the cross-lingual taxonomy of the dependencies that serves as the cross-linguistic basis of comparison and that the name of the labels, while linguistically informed, do not affect the entropy calculation in any way.
+From UD annotations, I start by determining which dependency relations of the verb to include as part of the valency frame. The distinction between argument (complement) and adjunct is a well-established one in linguistics, the former being obligatory and the latter optional. UD annotations schema \citep{demarneffe2014}, including in the up-to-date v2 guidelines\footnote{\url{https://universaldependencies.org/u/dep/}, archived on 30-07-2023 at \url{https://web.archive.org/web/20230730071650/https://universaldependencies.org/u/dep/}}, makes the distinction between \textit{core arguments} (i.e. subject and object) and everything else (called \textit{non-core dependents}) instead. All core arguments as classified by UD are included in the analysis. This includes nominal dependents (\textit{nominal subject}, \textit{object}, \textit{indirect object}) as well as clausal dependents (\textit{clausal subject}, \textit{clausal complement}, \textit{clausal complement}). 
 
-I extract information about (1) the presence or absence of dependency relations attached to a verb token, (2) the word order information, whether specific dependents precede or follow the head verb, and (3) morphological case marking on the dependents, if any.
+As the non-core dependents still include arguments which complete the verbal meaning (in particular, \textit{obliques}), and, as I will further in §\ref{sec:exp2-verb-specificity}, a priori distinctions between arguments and adjuncts are unnecessary for this study, possibly even counterproductive, given the quantitative experiment design. Thus, a subset of non-core dependents are included as well, namely oblique nominal, expletive, adverbial modifier and adverbial clause modifier. Other non-core dependents from UD are excluded for various reasons, either due to relatively low cross-lingual uniformity in interpretation (e.g., \textit{dislocated element}), or due to being suprasentential elements (e.g. \textit{vocative}, \textit{discourse element}). Tab.~\ref{tab:ud-dependent-labels} shows the list of dependents included in the study.
 
-\todo{some concrete examples for what is to be extracted}
-\subsection{Dependency relations}
-difficulty in deciding between core and non-core (complements and adjuncts) dependents
-\subsection{Word order information}
+It is important to note that the basis of cross-linguistic comparison will be the taxonomy of the dependencies (in §\ref{sec:exp2-verb-specificity}) and the valency frames they compose (in §\ref{sec:exp3-valency-frame-entropy}-\ref{sec:exp5-verb-entropy}). The validity of the study is therefore predicated on the cross-lingual validity of the UD relations, which, while certainly not perfect, is as good as one can do, given that UD is designed with it in mind, but otherwise agnostic as far as linguistic theory is concerned. In other words, it does not matter whether the UD category \textit{indirect object} corresponds to the traditional grammatical category of indirect object, in so far as the cross-linguistically dependents serving equivalent functions are consistently annotated.
 
-\subsection{Morphological case marking}
-Qualified as morphological case marking. due to specific 
+\subsection{Feature extraction}
 
+For each of dependent relations in Tab.~\ref{tab:ud-dependent-labels}, I extract three features: (1) the presence or absence of dependency relations attached to a verb token, (2) the relative word order information, whether specific dependents precede or follow the head verb, and (3) morphological case marking on the dependents, if any. In terms of implementation, the valency frame of each verb token is represented in a feature array encoding the three types of feature with the size of $3\times$ the number of dependents. Any verbs that share the same feature array are said to have the same valency frame.
 
 \section{Experiment 2: Verb specificity between core and non-core dependents}\label{sec:exp2-verb-specificity}
 
@@ -66,7 +66,7 @@ any non-specific dependent relations would become part of the baseline
 however the verb specificity 
 
 The less verb specific a dependency is, the more uniform it will be between verbs resulting in lower entropy in general. This is on an entropy per dependency relation level.
-Recall the bimodal distribution of transitive verbs, verbs that are highly transitive or highly intransitive will have high entropy wrt object, carrier more information. Verb specific feature -> higher entropy.
+Recall the bimodal distribution of transitive verbs, verbs that are highly transitive or highly intransitive will have high entropy wrt object, carrier more information. Verb specific feature leads to higher entropy.
 - IF core vs non-core distinction holds, we'll see higher entropy values for core dependencies than for non-core. Because core dependencies are more verb specific. 
 
 \subsection{Methodology}
