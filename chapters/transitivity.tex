@@ -46,11 +46,11 @@ Revising def. 1 and dropping the requirement in the numerator for verbs to have 
 
 While there is a strong case for Def. 4 being the most principled definition, I nevertheless implement all four definitions in this experiment to empirically verify the intuitions. They are also represented with feature matrices in Tab.~\ref{tab:transitivity-defs} for quick reference.
 
-\subsection{Transitivity ratios and the lexicon}
+\subsection{Transitivity ratios and the lexicon}\label{subsec:transitivity-lexicon}
 
 Transitivity ratio statistics for each verb lexeme based on the definitions are first compiled. From there, per-language statistics that will become the basis for our cross-lingual comparison are computed: I calculate the lexeme-level and token-level transitivity ratios for each language, respectively the arithmetic mean of the lexeme transitivity ratios and the mean of lexeme transitivity ratios weighted by the frequency of the lexeme. In addition to the transitivity ratio metrics, an additional metric, percentage of transitive verbs, i.e., the percentage of verbs in the observed lexicon that are not strictly intransitive (defined as never observed to take an \textsc{obj}), is calculated for comparison purposes, as it should correspond better with the traditional binary distinction between transitive and intransitive verbs.
 
-I perform the experiment on the selected subset of UD data as described in §\ref{subsec:data_ud}. For the analysis, I include only languages with at least 100 observed verb lexemes (56 out of 79 languages); the full results from the experiments can be found in the accompanying data and appendices. 
+I perform the experiment on the selected subset of UD data as described in §\ref{sec:data_selection}. For the analysis, I include only languages with at least 100 observed verb lexemes (56 out of 79 languages); the full results from the experiments can be found in the accompanying data and appendices. 
 
 \input{tables/transitivity_spearmanr.tex}
 

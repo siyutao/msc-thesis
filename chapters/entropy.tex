@@ -6,7 +6,7 @@ This chapter undertakes to expand the scope of investigation accordingly, to cov
 
 The sections are organized as follows: §\ref{sec:entropy-background} provides a brief background on cognitive and psycholinguistic perspectives on language structure, in particular relating to the frequency effect and valency frame alternation, which motivate the hypotheses tested in the experiments; in §\ref{sec:valency-frame-encoding}, the feature selection and extraction procedures of valency frame encoding from UD are described, as they form the basis for the experiments in this chapter. 
 
-Four experiments are then presented: Experiment 2 (§\ref{sec:exp2-verb-specificity}) defines entropy measures of variability of individual dependencies and seeks to quantitatively verify the verb specificity test that is used to distinguish core and non-core dependents (complements and adjuncts); Experiment 3 (§\ref{sec:exp3-valency-frame-entropy}) uses joint entropy to define the valency frame entropy measure and tests its correlation with verb frequency; Experiment 4 (§\ref{sec:exp4-ablation}) examines cross-lingual variations in how languages encode the valency frames, by means of an ablation study using conditional entropy to assess the contribution of word order and case marking to the overall valency frame entropy; Experiment 5 (§\ref{sec:exp5-verb-entropy}) takes a frame-based approach and, in symmetry to Experiment 3, calculates the correlation between verb entropy and frame frequency.
+Four experiments are then presented: Experiment 2 (§\ref{sec:exp2-valency-frame-entropy}) uses joint entropy to define the valency frame entropy measure and tests its correlation with verb frequency; Experiment 3 (§\ref{sec:exp3-ablation}) examines cross-lingual variations in how languages encode the valency frames, by means of an ablation study using conditional entropy to assess the contribution of word order and case marking to the overall valency frame entropy; Experiment 4 (§\ref{sec:exp4-verb-specificity}) uses conditional entropy measure and seeks to quantitatively verify the verb specificity test that is used to distinguish core and non-core dependents (complements and adjuncts); Experiment 5 (§\ref{sec:exp5-verb-entropy}) takes a frame-based approach and, in symmetry to Experiment 2, calculates the correlation between verb entropy and frame frequency.
 
 \section{Valency frame, frequency and the efficient organization of the lexicon}\label{sec:entropy-background}
 
@@ -51,23 +51,21 @@ As briefly discussed in the data chapter, UD annotations make available a range 
 
 From UD annotations, I start by determining which dependency relations of the verb to include as part of the valency frame. The distinction between argument (complement) and adjunct is a well-established one in linguistics, the former being obligatory and the latter optional. UD annotations schema \citep{demarneffe2014}, including in the up-to-date v2 guidelines\footnote{\url{https://universaldependencies.org/u/dep/}, archived on 30-07-2023 at \url{https://web.archive.org/web/20230730071650/https://universaldependencies.org/u/dep/}}, makes the distinction between \textit{core arguments} (i.e. subject and object) and everything else (called \textit{non-core dependents}) instead. All core arguments as classified by UD are included in the analysis. This includes nominal dependents (\textit{nominal subject}, \textit{object}, \textit{indirect object}) as well as clausal dependents (\textit{clausal subject}, \textit{clausal complement}, \textit{clausal complement}). 
 
-As the non-core dependents still include arguments which complete the verbal meaning (in particular, \textit{obliques}), and, as I will further in §\ref{sec:exp2-verb-specificity}, a priori distinctions between arguments and adjuncts are unnecessary for this study, possibly even counterproductive, given the quantitative experiment design. Thus, a subset of non-core dependents are included as well, namely oblique nominal, expletive, adverbial modifier and adverbial clause modifier. Other non-core dependents from UD are excluded for various reasons, either due to relatively low cross-lingual uniformity in interpretation (e.g., \textit{dislocated element}), or due to being suprasentential elements (e.g. \textit{vocative}, \textit{discourse element}). Tab.~\ref{tab:ud-dependent-labels} shows the list of dependents included in the study.
+As the non-core dependents still include arguments which complete the verbal meaning (in particular, \textit{obliques}), and, as I will further argue in §\ref{sec:exp4-verb-specificity}, a priori distinctions between arguments and adjuncts are unnecessary for this study, possibly even counterproductive, given the quantitative experiment design. Thus, a subset of non-core dependents are included as well, namely oblique nominal, expletive, adverbial modifier and adverbial clause modifier. Other non-core dependents from UD are excluded for various reasons, either due to relatively low cross-lingual uniformity in interpretation (e.g., \textit{dislocated element}), or due to being suprasentential elements (e.g. \textit{vocative}, \textit{discourse element}). Tab.~\ref{tab:ud-dependent-labels} shows the list of dependents included in the study.
 
-It is important to note that the basis of cross-linguistic comparison will be the taxonomy of the dependencies (in §\ref{sec:exp2-verb-specificity}) and the valency frames they compose (in §\ref{sec:exp3-valency-frame-entropy}-\ref{sec:exp5-verb-entropy}). The validity of the study is therefore predicated on the cross-lingual validity of the UD relations, which, while certainly not perfect, is as good as one can do, given that UD is designed with it in mind, but otherwise agnostic as far as linguistic theory is concerned. In other words, it does not matter whether the UD category \textit{indirect object} corresponds to the traditional grammatical category of indirect object, in so far as the cross-linguistically dependents serving equivalent functions are consistently annotated.
+It is important to note that the basis of cross-linguistic comparison will be the taxonomy of the dependencies and the valency frames they compose. The validity of the study is therefore predicated on the cross-lingual validity of the UD relations, which, while certainly not perfect, is as good as one can do, given that UD is designed with it in mind, but otherwise agnostic as far as linguistic theory is concerned. In other words, it does not matter whether the UD category \textit{indirect object} corresponds to the traditional grammatical category of indirect object, in so far as the cross-linguistically dependents serving equivalent functions are consistently annotated.
 
 \subsection{Feature extraction}
 
 For each of dependent relations in Tab.~\ref{tab:ud-dependent-labels}, I extract three features: (1) the presence or absence of dependency relations attached to a verb token, (2) the relative word order information, whether specific dependents precede or follow the head verb, and (3) morphological case marking on the dependents, if any. In terms of implementation, the valency frame of each verb token is represented in a feature array encoding the three types of feature with the size of $3\times$ the number of dependents. Any verbs that share the same feature array are said to have the same valency frame.
 
-\section{Experiment 2: Verb specificity between core and non-core dependents}\label{sec:exp2-verb-specificity}
+\section{Experiment 2: Frequency correlation with valency frame entropy}\label{sec:exp2-valency-frame-entropy}
 
-Verb specificity \citep{haspelmath2015a} 
-any non-specific dependent relations would become part of the baseline
-however the verb specificity 
+This experiment introduces a valency frame entropy metric, conditioned on the verb, that measures the average amount of surprisal, i.e., uncertainty, associated with the valency frame alternation for a verb, and hypothesize a positive correlation between a verb's frequency and the valency frame entropy conditioned on it that should hold across languages. In other words, the more frequent a verb is, the more information content one can expect on average from its valency frames.
 
-The less verb specific a dependency is, the more uniform it will be between verbs resulting in lower entropy in general. This is on an entropy per dependency relation level.
-Recall the bimodal distribution of transitive verbs, verbs that are highly transitive or highly intransitive will have high entropy wrt object, carrier more information. Verb specific feature leads to higher entropy.
-- IF core vs non-core distinction holds, we'll see higher entropy values for core dependencies than for non-core. Because core dependencies are more verb specific. 
+A learnability perspective on the lexicon provides one motivation behind the hypothesis. Taking the view that the lexicon is acquired from linguistic experience, more exposure to and access of the more frequent words leads to higher resting activation (cf. \citealp*{bybee1998}), therefore allowing for more complexity or uncertainty being retained in the lexicon. This is analogous to the correlation between word frequency and irregularity in morphological patterns. However, whereas morphological irregularity is a purely formal feature, the choice of valency frame often entails a semantic choice as well.
+
+If viewed from a production and comprehension perspective, the hypothesis is also potentially relevant to the Uniform Information Density (UID) hypothesis \citep{fenk1980,levy2006}, which posits that language speakers prefer a more even distribution of surprisal values across utterances in order to maximize but not overload the capacity of the communication channel. Less frequent verbs would already have high surprisal, having high entropy in the valency frames associated with it is undesirable due to channel capacity constraints. I note, however, that UID hypothesis has mostly focused on surprisal at a token/phoneme-level. This is the case for the verb in question, but the valency entropy measures aspects of the morphosyntax of the sentence instead and requires a clearer formulation of the relationship between the frames and the tokens that compose it. Nevertheless, at a high level the hypothesis here is congruent what is expected given the UID hypothesis.
 
 \subsection{Methodology}
 
@@ -82,25 +80,6 @@ The entropy of each dependency relation given a specific verb $v \in \mathcal{V}
 
 Here, $P(x_k | V = v)$ represents the conditional probability of the outcome $x_k$ of the dependency relation $X_k$ given that the verb variable $V$ takes on the value $v$. The entropy of $X_k$ is calculated by summing the products of these probabilities with their logarithms (base 2) taken, each corresponding to a possible outcome $x_k$.
 
-
-- are there any frequency effect here
-- if not, normalize the entropy 
-
-\subsection{Results}
-
-\subsection{Analysis}
-
-
-
-\section{Experiment 3: Frequency correlation with valency frame entropy}\label{sec:exp3-valency-frame-entropy}
-
-This experiment introduces a valency frame entropy metric, conditioned on the verb, that measures the average amount of surprisal, i.e., uncertainty, associated with the valency frame alternation for a verb, and hypothesize a positive correlation between a verb's frequency and the valency frame entropy conditioned on it that should hold across languages. In other words, the more frequent a verb is, the more information content one can expect on average from its valency frames.
-
-A learnability perspective on the lexicon provides one motivation behind the hypothesis. Taking the view that the lexicon is acquired from linguistic experience, more exposure to and access of the more frequent words leads to higher resting activation (cf. \citealp*{bybee1998}), therefore allowing for more complexity or uncertainty being retained in the lexicon. This is analogous to the correlation between word frequency and irregularity in morphological patterns. However, whereas morphological irregularity is a purely formal feature, the choice of valency frame often entails a semantic choice as well.
-
-If viewed from a production and comprehension perspective, the hypothesis is also potentially relevant to the Uniform Information Density (UID) hypothesis \citep{fenk1980,levy2006}, which posits that language speakers prefer a more even distribution of surprisal values across utterances in order to maximize but not overload the capacity of the communication channel. Less frequent verbs would already have high surprisal, having high entropy in the valency frames associated with it is undesirable due to channel capacity constraints. I note, however, that UID hypothesis has mostly focused on surprisal at a token/phoneme-level. This is the case for the verb in question, but the valency entropy measures aspects of the morphosyntax of the sentence instead and requires a clearer formulation of the relationship between the frames and the tokens that compose it. Nevertheless, at a high level the hypothesis here is congruent what is expected given the UID hypothesis.
-
-\subsection{Methodology}
 
 The \textbf{valency frame entropy} is formalized as the joint entropy of the relevant UD dependency relations, i.e., number of bits needed to encode the entire valency frame. Denoted as $H_{\text{joint}}(X_1, X_2, \ldots, X_n | V = v)$, it quantifies the uncertainty associated with the combined set of random variables $X_1, X_2, \ldots, X_n$, again given a specific value $v$ for the verb variable $V$. This is defined as:
 
@@ -149,7 +128,7 @@ Citation for interpreting the strength of the correlation \citep{schober2018}
 
 \subsection{Analysis}
 
-\section{Experiment 4: Word order or case? Cross-lingual variation in valency encoding strategies}\label{sec:exp4-ablation}
+\section{Experiment 3: Word order or case? Cross-lingual variation in valency encoding strategies}\label{sec:exp3-ablation}
 
 - comparing the delta between different languages
 - reliance on wo / case information to encode
@@ -157,6 +136,30 @@ Citation for interpreting the strength of the correlation \citep{schober2018}
 \subsection{Methodology}
 \subsection{Results}
 \subsection{Analysis}
+
+\section{Experiment 4: Verb specificity}\label{sec:exp4-verb-specificity}
+
+Let us reexamine the argument-adjunct distinction in argument structure again. This distinction is relevant to syntax and semantics at a sentential level and usually formulated to state that the former is obligatory to complete the meaning of the verb, and the latter not. As it is concerned with morphosyntax first and foremost, this study focuses on the syntactic observation of \textit{verb specificity} \citep[cf.]{haspelmath2015a}, namely that verbs are more selective with regard to arguments but can be more freely used with adjuncts. In other words, arguments tend to have greater verb specificity than adjuncts. 
+
+This experiment quantifies the verb specificity as the verb entropy conditioned on the dependency relation.
+
+
+% This experiment seeks to quantify the verb specificity by looking at the variance of dependency relation entropy when conditioned the verb. The entropy measures the average surprisal associated with this relation (including presence, word order and case marking) when given the verb. If a verb never or always appears with a certain dependency relation with a certain word order and case marking, the entropy of this dependency relation conditioned on the verb will be 0; the opposite scenario, where a verb is equally likely to appear with or without certain dependency frame, would result in the highest possible entropy. The specific ceiling value is dependent upon the possible `frames' of this entropy given the number of case marking and word order flexibility and will vary by language.
+
+% Recall the bimodal distribution of transitive verbs observed \subsection{subsec:transitivity-lexicon}, verbs that are highly transitive or highly intransitive will have high entropy, carrier more information. Verb specific feature leads to higher entropy.
+
+
+% The less verb specific a dependency is, the more uniform it will be between verbs resulting in lower entropy in general. This is on an entropy per dependency relation level.
+
+\subsection{Methodology}
+
+- are there any frequency effect here
+- if not, normalize the entropy 
+
+\subsection{Results}
+
+\subsection{Analysis}
+
 \section{Experiment 5: Frequency correlation with verb entropy}\label{sec:exp5-verb-entropy}
 so far a lexeme-based view of valency 
 constructionist view would yield symmetrical predictions
