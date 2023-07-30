@@ -51,7 +51,7 @@ As briefly discussed in the data chapter, UD annotations make available a range 
 
 From UD annotations, I start by determining which dependency relations of the verb to include as part of the valency frame. The distinction between argument (complement) and adjunct is a well-established one in linguistics, the former being obligatory and the latter optional. UD annotations schema \citep{demarneffe2014}, including in the up-to-date v2 guidelines\footnote{\url{https://universaldependencies.org/u/dep/}, archived on 30-07-2023 at \url{https://web.archive.org/web/20230730071650/https://universaldependencies.org/u/dep/}}, makes the distinction between \textit{core arguments} (i.e. subject and object) and everything else (called \textit{non-core dependents}) instead. All core arguments as classified by UD are included in the analysis. This includes nominal dependents (\textit{nominal subject}, \textit{object}, \textit{indirect object}) as well as clausal dependents (\textit{clausal subject}, \textit{clausal complement}, \textit{clausal complement}). 
 
-As the non-core dependents still include arguments which complete the verbal meaning (in particular, \textit{obliques}), and, as I will further argue in §\ref{sec:exp4-verb-specificity}, a priori distinctions between arguments and adjuncts are unnecessary for this study, possibly even counterproductive, given the quantitative experiment design. Thus, a subset of non-core dependents are included as well, namely oblique nominal, expletive, adverbial modifier and adverbial clause modifier. Other non-core dependents from UD are excluded for various reasons, either due to relatively low cross-lingual uniformity in interpretation (e.g., \textit{dislocated element}), or due to being suprasentential elements (e.g. \textit{vocative}, \textit{discourse element}). Tab.~\ref{tab:ud-dependent-labels} shows the list of dependents included in the study.
+As the non-core dependents still include arguments which complete the verbal meaning (in particular, \textit{obliques}), and, as I will argue in more detail in §\ref{sec:exp4-verb-specificity}, a priori distinctions between arguments and adjuncts are unnecessary for this study, possibly even counterproductive, given the quantitative experiment design. Thus, a subset of non-core dependents are included as well, namely oblique nominal, expletive, adverbial modifier and adverbial clause modifier. Other non-core dependents from UD are excluded for various reasons, either due to relatively low cross-lingual uniformity in interpretation (e.g., \textit{dislocated element}), or due to being suprasentential elements (e.g. \textit{vocative}, \textit{discourse element}). Tab.~\ref{tab:ud-dependent-labels} shows the list of dependents included in the study.
 
 It is important to note that the basis of cross-linguistic comparison will be the taxonomy of the dependencies and the valency frames they compose. The validity of the study is therefore predicated on the cross-lingual validity of the UD relations, which, while certainly not perfect, is as good as one can do, given that UD is designed with it in mind, but otherwise agnostic as far as linguistic theory is concerned. In other words, it does not matter whether the UD category \textit{indirect object} corresponds to the traditional grammatical category of indirect object, in so far as the cross-linguistically dependents serving equivalent functions are consistently annotated.
 
@@ -61,6 +61,7 @@ For each of dependent relations in Tab.~\ref{tab:ud-dependent-labels}, I extract
 
 \section{Experiment 2: Frequency correlation with valency frame entropy}\label{sec:exp2-valency-frame-entropy}
 
+\subsection{Introduction}
 This experiment introduces a valency frame entropy metric, conditioned on the verb, that measures the average amount of surprisal, i.e., uncertainty, associated with the valency frame alternation for a verb, and hypothesize a positive correlation between a verb's frequency and the valency frame entropy conditioned on it that should hold across languages. In other words, the more frequent a verb is, the more information content one can expect on average from its valency frames.
 
 A learnability perspective on the lexicon provides one motivation behind the hypothesis. Taking the view that the lexicon is acquired from linguistic experience, more exposure to and access of the more frequent words leads to higher resting activation (cf. \citealp*{bybee1998}), therefore allowing for more complexity or uncertainty being retained in the lexicon. This is analogous to the correlation between word frequency and irregularity in morphological patterns. However, whereas morphological irregularity is a purely formal feature, the choice of valency frame often entails a semantic choice as well.
@@ -71,7 +72,7 @@ If viewed from a production and comprehension perspective, the hypothesis is als
 
 Let $X_1, X_2,\ldots,X_n$ be discrete random variables where each $X_k$ represents a UD dependency relation (e.g., \textsc{nsubj}, \textsc{obj}, \ldots). These variables have corresponding sample spaces $\mathcal{X}_1, \mathcal{X}_2, \ldots, \mathcal{X}_n$, which represent the possible outcomes of each variable with regard to its presence, linearized order, and any case information. Additionally, let there be a variable $V$ that represents the choice of a verb from the lexicon $\mathcal{V}$. 
 
-The entropy of each dependency relation given a specific verb $v \in \mathcal{V}$ quantifies the average surprisal associated with that dependency relation. It is defined as:
+The entropy of each dependency relation given a specific verb $v \in \mathcal{V}$ quantifies the average surprisal associated with that dependency relation. The \textbf{dependency relation entropy} for  $X_k$ is defined as:
 
 \begin{equation*}
   H(X_{k}|V=v)=
@@ -79,7 +80,6 @@ The entropy of each dependency relation given a specific verb $v \in \mathcal{V}
 \end{equation*}
 
 Here, $P(x_k | V = v)$ represents the conditional probability of the outcome $x_k$ of the dependency relation $X_k$ given that the verb variable $V$ takes on the value $v$. The entropy of $X_k$ is calculated by summing the products of these probabilities with their logarithms (base 2) taken, each corresponding to a possible outcome $x_k$.
-
 
 The \textbf{valency frame entropy} is formalized as the joint entropy of the relevant UD dependency relations, i.e., number of bits needed to encode the entire valency frame. Denoted as $H_{\text{joint}}(X_1, X_2, \ldots, X_n | V = v)$, it quantifies the uncertainty associated with the combined set of random variables $X_1, X_2, \ldots, X_n$, again given a specific value $v$ for the verb variable $V$. This is defined as:
 
@@ -92,7 +92,7 @@ The \textbf{valency frame entropy} is formalized as the joint entropy of the rel
 
 Here, $P(x_1, x_2, \ldots, x_n | V = v)$ represents the joint probability distribution of the outcomes $x_1, x_2, \ldots, x_n$ of the random variables $X_1, X_2, \ldots, X_n$, given that the verb variable $V$ takes on the value $v$. The joint entropy is calculated by summing the products of these joint probabilities with their logarithms (base 2) taken, each corresponding to a specific combination of outcomes $x_1, x_2, \ldots, x_n$.
 
-In practice, for this study, the valency frame entropy is calculated as cross-entropy, following other studies using entropy measures \citep{hahn2021} in an effort to reduce artifacts. Treebanks of the same language are combined and then split randomly into two halves, resulting in two sets of distributions $X_1,\ldots,X_n$ and $X_1^{\prime},\ldots,X_n^{\prime}$. It follows that the joint cross-entropy between them is:
+In practice, for this study, the valency frame entropy is calculated as cross-entropy, following other studies using entropy measures \citep{hahn2021}, in an effort to reduce artifacts introduced by data sparsity for rare frames. Treebanks of the same language are combined and then split randomly into two halves, resulting in two sets of distributions $X_1,\ldots,X_n$ and $X_1^{\prime},\ldots,X_n^{\prime}$. It follows that the joint cross-entropy between them is:
 
 \begin{equation*}
   \begin{split}
@@ -101,23 +101,24 @@ In practice, for this study, the valency frame entropy is calculated as cross-en
   \end{split}
 \end{equation*}
   
-The difference from the standard entropy measure is that the probabilities and their logarithms are estimated from the two different distributions with the same image. Add-one smoothing is used to prevent fringe cases where a frame is observed in only one of the two distributions.
+The difference from the standard entropy measure is that the probabilities and their logarithms are estimated from the two different distributions with the same image. Laplace smoothing is used to prevent fringe cases where a frame is observed in only one of the two distributions.
 
 The correlation between verb frequency and valency frame entropy as conditioned on it is assessed using Spearman's rank correlation coefficient \citep{spearman1904}, which measures the correlation between two rank variables. 
 
-At first glance, there may be concerns that because the verb frequency here is also the number of observation made for estimating valency frame entropy. This is however unfounded, as the goal here is observational and not causal investigation.  I additionally take a subsample.
+At first glance, there may be concerns about circularity with the correlation: the verb frequency is the first variable, but it is also the number of observations made for estimating the second variable. This is in part mitigated by the use of cross-entropy, as the probabilities of one frame appearing and the average surprisal of that frame are estimated from two separate splits of the corpora. To further address such concerns, a subsampling experiment is performed where I take subsamples of a fixed size (the subsampling threshold) for all verbs and verbs with frequency below the subsampling threshold are not included in the analysis. As corpus size varies dramatically between languages, the subsampling threshold also cannot be one-size-fits-all. I use a heuristically determined subsampling ratio of 0.1 but capped at a maximum of 25 samples. In this way, a lower-resource language such as Greek will see a threshold of 18, as determined by 0.1 $\times$ the frequency of the most frequent verb \textit{μπορώ} (186), whereas a higher-resource language such as English will see a fixed threshold of 25 instead of 313, as it would have been by 0.1 $\times$ the frequency of the most common verb \textit{have} (3134).
 
-For the subsampling threshold, we take a heuristically determined 
+\subsection{Results and discussion}
 
-\subsection{Results}
+% main results
+Results show robust correlation between frequency and valency frame entropy. There is however great cross-linguistic variation in the strength of the correlation. Citation for interpreting the strength of the correlation \citep{schober2018}
 
-- correlation results - subsampling  
-The correlation results are included in the appendix.
+\todo{lang with strongest correlation results} 
+\todo{lang with weakest correlation results} 
 
+% plots
+The results are plotted into scatter plots with frequency rank on the x-axis and valency frame entropy on the y-axis. Fig.~\ref{fig:joint_entropy_freq} 
 
-\todo{Add correlations strength results} 
-
-Citation for interpreting the strength of the correlation \citep{schober2018}
+Positive correlation between frequency and frame entropy leads to negative correlation between frequency rank and frame entropy of course.
 
 \begin{sidewaysfigure}[ht]
   \centering
@@ -126,23 +127,58 @@ Citation for interpreting the strength of the correlation \citep{schober2018}
   \label{fig:joint_entropy_freq}
 \end{sidewaysfigure}
 
-\subsection{Analysis}
+
+% subsampling results
+
+Results from subsampling are presented in xxx. As expected, the correlation strength decreased across the board, particularly for languages such as xxx. 
+
+% subsampling discussion
+
+The subsampling results highlights the need as a next step to analyze the results for the varying correlation. This could be because of language structure. Complexity vs the verbal system 
+
+% correlation between frequency and dependency relation entropy
+
+As an additional test, we also confirm that individual dependency relations do not correlate with frequency. This is as expected and confirms the validity of valency frame as a suitable level for analyzing argument structure.
+
+% number of frames
+number of frames should an even stronger correlation with frequency - of course. 
+
 
 \section{Experiment 3: Word order or case? Cross-lingual variation in valency encoding strategies}\label{sec:exp3-ablation}
+\subsection{Introduction}
 
-- comparing the delta between different languages
-- reliance on wo / case information to encode
+Typological differences regarding word order and case marking necessarily means that different languages will have to use different strategies for encoding valency frames. On the one hand, it is a straightforward matter that a language cannot use case marking to encode a valency frame if it does not have case marking and a language with more flexible word order is less likely to use word order to encode its valency frame. On the other hand, the trade-off between word order and case marking in languages has been a well-studied topic in typology.
 
 \subsection{Methodology}
-\subsection{Results}
-\subsection{Analysis}
 
-\section{Experiment 4: Verb specificity}\label{sec:exp4-verb-specificity}
+% correlation strength comparison
+For this experiment, we compare use only valency frame information  
+- valency frame without word order information
+- valency frame without case marking
+- valency frame without word order and case marking information
 
-Let us reexamine the argument-adjunct distinction in argument structure again. This distinction is relevant to syntax and semantics at a sentential level and usually formulated to state that the former is obligatory to complete the meaning of the verb, and the latter not. As it is concerned with morphosyntax first and foremost, this study focuses on the syntactic observation of \textit{verb specificity} \citep[cf.]{haspelmath2015a}, namely that verbs are more selective with regard to arguments but can be more freely used with adjuncts. In other words, arguments tend to have greater verb specificity than adjuncts. 
+% conditional entropy
+- conditional entropy of word order information 
+-  conditional entropy of word order information 
+- calculate conditional entropy using the chain rule
+a variation of
+$$H(X_{k} | V = v, X_{1},\cdots,X_{n} \setminus X_{k}) = H( V = v, X_{1},\cdots,X_{n}) - H( V = v, X_{1},\cdots,X_{n}\setminus X_{k})$$
 
-This experiment quantifies the verb specificity as the verb entropy conditioned on the dependency relation.
+\subsection{Results and analysis}
 
+% correlation strength comparison
+
+Lower correlation strength are observed
+
+
+% conditional entropy as percentage of the full entropy 
+Delta between them 
+
+\section{Experiment 4: Verb specificity and the argument-adjunct distinction}\label{sec:exp4-verb-specificity}
+
+\subsection{Introduction}
+
+Let us reexamine the argument-adjunct distinction in argument structure again. This distinction is relevant to syntax and semantics at a sentential level and usually formulated to state that the former is obligatory to complete the meaning of the verb, and the latter not. As it is concerned with morphosyntax first and foremost, this study focuses on the syntactic observation of \textit{verb specificity} \citep[cf.]{haspelmath2015a}, namely that verbs are more selective with regard to arguments but can be more freely used with adjuncts. 
 
 % This experiment seeks to quantify the verb specificity by looking at the variance of dependency relation entropy when conditioned the verb. The entropy measures the average surprisal associated with this relation (including presence, word order and case marking) when given the verb. If a verb never or always appears with a certain dependency relation with a certain word order and case marking, the entropy of this dependency relation conditioned on the verb will be 0; the opposite scenario, where a verb is equally likely to appear with or without certain dependency frame, would result in the highest possible entropy. The specific ceiling value is dependent upon the possible `frames' of this entropy given the number of case marking and word order flexibility and will vary by language.
 
@@ -153,21 +189,24 @@ This experiment quantifies the verb specificity as the verb entropy conditioned 
 
 \subsection{Methodology}
 
-- are there any frequency effect here
-- if not, normalize the entropy 
+$$H(X_{k} | V = v, X_{1},\cdots,X_{n} \setminus X_{k}) = H( V = v, X_{1},\cdots,X_{n}) - H( V = v, X_{1},\cdots,X_{n}\setminus X_{k})$$
 
-\subsection{Results}
-
-\subsection{Analysis}
+\subsection{Results and analysis}
 
 \section{Experiment 5: Frequency correlation with verb entropy}\label{sec:exp5-verb-entropy}
-so far a lexeme-based view of valency 
-constructionist view would yield symmetrical predictions
-that the entropy of lexical choice would correlate with frequency of the valency frame
+
+\subsection{Introduction}
+
+So far the experiments have focused on calculating the valency frame entropy conditioned on verb choice. While this does not necessitate the lexeme-based view of valency, lexeme is still the level at which experiments are performed and analysis made. As the hypotheses themselves are motivated by constraints on language structure that derive from its communicative function, they should nevertheless be neutral with respect to which theory of valency one subscribes to. 
+
+Consequently, if one were to adopt the frame-based view of valency and insist on using the frame as the level of analysis, a symmetric hypothesis can be made: namely that given a new metric of verb entropy conditioned on valency frame, we would see a similar frequency effect where the entropy of lexical choice would correlate with the frequency of the valency frame. 
+
+This experiment undertakes to examine exactly that hypothesis and verify the expected symmetry.
 
 \subsection{Methodology}
 
 The entropy value for the verb given a single slot is
+
 $$
 H(V|X_{k}=x)=
 -\sum\limits_{v\in{}\mathcal{V}}{P(v|X_k=x)\log_{2}{P(v|X_k=x)}}
@@ -180,6 +219,5 @@ H(V|X_1=x_1,\ldots,X_n=x_n)=
 -\sum\limits_{v\in{}\mathcal{V}}{P(v|X_1=x_1,\ldots,X_n=x_n)\log_2P(v|X_1=x_1,\ldots,X_n=x_n)}
 $$
 
+\subsection{Results and analysis}
 
-\subsection{Results}
-\subsection{Analysis}
