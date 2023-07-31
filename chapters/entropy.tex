@@ -114,7 +114,7 @@ At first glance, there may be concerns about circularity with the correlation: t
 \subsection{Results and discussion}
 
 % plots
-The results of the valency frame entropy calculations with the full test set. are plotted into scatter plots in Fig.~\ref{fig:joint_entropy_freq}, where each dot represents a single lexeme with frequency rank on the x-axis and valency frame entropy on the y-axis for each of the languages. The dots are additionally colored by the number of valency frames associated with the verb. To improve plot legibility, only verbs with frequency rank below 1000 are plotted. A visual inspection suggests a clear negative relationship across languages between frequency rank and valency frame as well a negative relationship between frequency rank and number of frames, i.e. positive relationship between frequency and the respective variables. Notably, however, the plots for Japanese and to a slightly lesser extent Chinese and Classical Chinese show a significant number of outliers where high frequency verbs nevertheless have lower valency frame entropy values. 
+The results of the valency frame entropy calculations with the full dataset are plotted into scatter plots in Fig.~\ref{fig:joint_entropy_freq}, where each dot represents a single lexeme with frequency rank on the x-axis and valency frame entropy on the y-axis for each of the languages. The dots are additionally colored by the number of valency frames associated with the verb. To improve plot legibility, only verbs with frequency rank below 1000 are plotted. A visual inspection suggests a clear negative relationship across languages between frequency rank and valency frame as well a negative relationship between frequency rank and number of frames, i.e. positive relationship between frequency and the respective variables. Notably, however, the plots for Japanese and to a slightly lesser extent Chinese and Classical Chinese show a significant number of outliers where high frequency verbs nevertheless have lower valency frame entropy values. 
 
 \begin{sidewaysfigure}[ht]
   \centering
@@ -132,7 +132,7 @@ Full correlation results are shown in Appendix~\ref{appendix:exp2-rho-freq-valen
 \begin{sidewaysfigure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figures/exp2/joint_entropy_freq_subsample.pdf}
-  \caption{Scatter plots showing relationship between valency frame entropy as estimated from the subsample and frequency rank of verbs, color shows number of frames associated with the verb}
+  \caption{Scatter plots showing relationship between valency frame entropy \textbf{using subsampling} and frequency rank of verbs, color shows number of frames associated with the verb (yellow = higher, blue = lower)}
   \label{fig:joint_entropy_freq_subsample}
 \end{sidewaysfigure}
 
@@ -149,7 +149,6 @@ An example of this can be seen in the case of Chinese: many of the verbs that ar
 % % correlation between frequency and dependency relation entropy
 
 % As an additional test, we also confirm that individual dependency relations do not correlate with frequency. This is as expected and confirms the validity of valency frame as a suitable level for analyzing argument structure.
-
 
 \section{Experiment 3: Word order or case? Cross-lingual variation in valency encoding strategies}\label{sec:exp3-ablation}
 \subsection{Introduction}
@@ -184,18 +183,16 @@ The conditional entropy is calculated using the chain rule by subtracting the en
   \end{split}
 \end{equation*}
 
-and likewise for the conditional entropy of case marking. The conditional entropy can be intuitively understood as the unique contribution of the variables towards the full entropy, not predictable from other variables. It can also be understood as the entropy of this variable minus mutual information shared with other variable. Conditional measures are then aggregated at a language level for cross-lingual comparison.
+and likewise for the conditional entropy of case marking. The conditional entropy can be intuitively understood as the unique contribution of the variables towards the full entropy, not predictable from other variables. It can also be understood as the entropy of this variable minus mutual information shared with other variable. Conditional entropy values are then aggregated at a language level for cross-lingual comparison.
 
 \subsection{Results and analysis}
 
 % correlation strength comparison
+The full correlation results for the valency frame entropy measures after ablation are included in Appendix~\ref{appendix:exp3-corr} and confirm my first hypothesis. As compared to the full valency frame entropy, calculating entropy without word order information results in a reduction of correlation strength, albeit relatively small, in 58 out of 59 languages (mean $\delta$= -0.059, SD = 0.046).
 
-Lower correlation strength are observed
+The ablation of case information results in a reduction of correlation strength in 51 out of 59 languages (mean $\delta$= -0.051, SD = 0.051). As compared to word order, the removal of case information shows a clearer typological pattern. Unsurprisingly, languages where no reduction of correlation strength is observed are languages without any case marking, such as French, Hebrew and Chinese. The languages that showed the biggest reduction in correlation strength are those having the full case system, for example, Serbian, Turkish, German. Interestingly, English showed relatively high reduction of correlation strength (-0.060), despite not having a complete case system. A possible explanation is that the cases where a morphological case can be observed (namely pronoun usage) are more informative than usual, including frequent verbs such as ``I gave her the book'', which may affect the results.
 
-
-% conditional entropy as percentage of the full entropy 
-Delta between them 
-
+The conditional entropy results are included in Appendix~\ref{appendix:exp3-conditional}. They are very strongly correlated with the change in correlation strength (Pearson's correlation statistic $\rho=0.70, p=.000$ and  $\rho=0.85, p=.000$, respectively). However, the second hypothesis concerning a trade-off between word order and case marking cannot be supported with the results, as weak to no correlation is observed cross-lingually.
 
 \section{Experiment 4: Frequency correlation with verb entropy}\label{sec:exp4-verb-entropy}
 
@@ -203,9 +200,7 @@ Delta between them
 
 So far the experiments have focused on calculating the valency frame entropy conditioned on verb choice. While this does not necessitate the lexeme-based view of valency, lexeme is still the level at which experiments are performed and analysis made. As the hypotheses themselves are motivated by constraints on language structure that derive from its communicative function, they should nevertheless be neutral with respect to which theory of valency one subscribes to. 
 
-Consequently, if one were to adopt the frame-based view of valency and insist on using the frame as the level of analysis, a symmetric hypothesis can be made: namely that given a new metric of verb entropy conditioned on valency frame, we would see a similar frequency effect where the entropy of lexical choice would correlate with the frequency of the valency frame. 
-
-This experiment undertakes to examine exactly that hypothesis and verify the expected symmetry.
+Consequently, if one were to adopt the frame-based view of valency and insist on using the frame as the level of analysis, a symmetric hypothesis can be made: namely that given a new metric of verb entropy conditioned on valency frame, we would see a similar frequency effect where the entropy of lexical choice would correlate with the frequency of the valency frame. This brief experiment undertakes to examine exactly that hypothesis and verify the expected symmetry.
 
 \subsection{Methodology}
 
@@ -220,28 +215,10 @@ Given the same variable definitions as in experiment 2, the entropy value for th
 
 Here, $P(V=v|X_1=x_1,\ldots,X_n=x_n)$ represents the conditional probability of the outcome that the verb $v$ from the vocabulary $\mathcal{V}$ is selected for the verb slot $V$ given an already determined valency frame $X_1=x_1,\ldots,X_n=x_n$. The entropy of $V$ is calculated by summing the products of these probabilities with their logarithms (base 2) taken, each corresponding to a possible outcome $v_k$.
 
-The rest of the experiment is similarly done in symmetry to experiment 2. Spearman's rank correlation will be calculated with valency frame frequency on the one hand and verb entropy conditioned on the valency frame on the other. 
+The rest of the experiment is similarly done in symmetry to experiment 2. Spearman's rank correlation will be calculated between valency frame frequency on the one hand and verb entropy conditioned on the valency frame on the other. 
 
 \subsection{Results and analysis}
 
-The results are as expected.
+Analogous to the procedures in Experiment 2, only languages with more than 50 valency frames are included in the analysis. The results from Spearman's rank correlation calculations are presented in Appendix~\ref{appendix:exp4-corr} and the full per-lexeme results will be included in the accompanying data. As predicted, for most languages, at least moderate correlation is observed between valency frame frequency and verb entropy. Out of 53 languages with statistically significant results (p<0.005), 44 show strong to very strong correlations and 52 show moderate correlations.
 
-
-% \section{Experiment 4: Verb specificity and the argument-adjunct distinction}\label{sec:exp4-verb-specificity}
-
-% \subsection{Introduction}
-
-% Let us reexamine the argument-adjunct distinction in argument structure again. This distinction is relevant to syntax and semantics at a sentential level and usually formulated to state that the former is obligatory to complete the meaning of the verb, and the latter not. As it is concerned with morphosyntax first and foremost, this study focuses on the syntactic observation of \textit{verb specificity} \citep[cf.]{haspelmath2015a}, namely that verbs are more selective with regard to arguments but can be more freely used with adjuncts. 
-
-% This experiment seeks to quantify the verb specificity by looking at the variance of dependency relation entropy when conditioned the verb. The entropy measures the average surprisal associated with this relation (including presence, word order and case marking) when given the verb. If a verb never or always appears with a certain dependency relation with a certain word order and case marking, the entropy of this dependency relation conditioned on the verb will be 0; the opposite scenario, where a verb is equally likely to appear with or without certain dependency frame, would result in the highest possible entropy. The specific ceiling value is dependent upon the possible `frames' of this entropy given the number of case marking and word order flexibility and will vary by language.
-
-% Recall the bimodal distribution of transitive verbs observed \subsection{subsec:transitivity-lexicon}, verbs that are highly transitive or highly intransitive will have high entropy, carrier more information. Verb specific feature leads to higher entropy.
-
-
-% The less verb specific a dependency is, the more uniform it will be between verbs resulting in lower entropy in general. This is on an entropy per dependency relation level.
-
-% \subsection{Methodology}
-
-% $$H(X_{k} | V = v, X_{1},\cdots,X_{n} \setminus X_{k}) = H( V = v, X_{1},\cdots,X_{n}) - H( V = v, X_{1},\cdots,X_{n}\setminus X_{k})$$
-
-% \subsection{Results and analysis}
+Notably, some languages for which the strength of correlation between verb frequency and valency frame entropy such as Chinese show instead relatively robust correlation strength in this experiment and vice versa. This points to potential trade-off between the complexity of the verbal system and the complexity of the valency frames and seems suitable as a topic of future investigation.
