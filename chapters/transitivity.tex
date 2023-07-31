@@ -53,7 +53,7 @@ While there is a strong case for Def. 4 being the most principled definition, I 
 
 Transitivity ratio statistics for each verb lexeme based on the definitions are first compiled. From there, per-language statistics that will become the basis for our cross-lingual comparison are computed: I calculate the lexeme-level and token-level transitivity ratios for each language, respectively the arithmetic mean of the lexeme transitivity ratios and the mean of lexeme transitivity ratios weighted by the frequency of the lexeme. In addition to the transitivity ratio metrics, an additional metric, percentage of transitive verbs, i.e., the percentage of verbs in the observed lexicon that are not strictly intransitive (defined as never observed to take an \textsc{obj}), is calculated for comparison purposes, as it should correspond better with the traditional binary distinction between transitive and intransitive verbs.
 
-I perform the experiment on the selected subset of UD data as described in §\ref{sec:data_selection}. For the analysis, I include only languages with at least 50 observed verb lexemes (69 out of 79 languages); the full results from the experiments can be found in the accompanying data and appendices. 
+I perform the experiment on the selected subset of UD data as described in §\ref{sec:data_selection}. For the analysis, I include only languages with at least 50 observed verb lexemes (69 out of 79 languages); the full results from the experiments can be found in the accompanying data. 
 
 \input{tables/transitivity_spearmanr.tex}
 
@@ -67,7 +67,7 @@ Further intralinguistic analyses are done by plotting histograms of the distribu
 
 \begin{sidewaysfigure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{figures/verb_dist_by_transitivity.pdf}
+  \includegraphics[width=\textwidth]{figures/exp1/verb_dist_by_transitivity.pdf}
   \caption{Histograms showing the binned distributions of verbs according to their transitivity ratio in different languages}
   \label{fig:verb_dist_transitivity}
 \end{sidewaysfigure}
@@ -78,18 +78,18 @@ Most distributions are bimodal with peak at both ends, which supports the overal
 
 \input{tables/most_least_transitive_lang.tex}
 
-Tab.~\ref{tab:most_tr_by_verb_percentage} and \ref{tab:most_tr_by_token_mean} list the most and least `transitive' languages in our study, respectively according to the transitive verb percentage and the token-level transitivity ratio. Recall that token-level transitivity ratios are favored over lexeme-level ones for cross-lingual comparison.
+Tab.~\ref{tab:most_tr_by_verb_percentage} and \ref{tab:most_tr_by_token_mean} list the most and least `transitive' languages in our study, respectively according to the transitive verb percentage and the token-level transitivity ratio. Recall that token-level transitivity ratios are favored over lexeme-level ones for cross-lingual comparison. Appendix \ref{appendix:exp1} lists the full results.
 
-Among the most transitive languages are Romance (Catalan, Spanish, French, Galician) and Germanic (German, Norwegian, English, Danish) languages of Europe, Sinitic languages (Chinese, Classical Chinese, particularly when measured by token-level transitivity ratio), Indonesian, Hindi. On the opposite end of the spectrum are Hebrew, Irish, Japanese, as well as Baltic (Lithuanian, Latvian) and Slavic (Slovak, Russian, Polish) languages, which have the lowest transitivity ratios.
+Among the most transitive languages are Romance (Catalan, Spanish, French, Galician) and most Germanic (German, Norwegian, English, Danish, with the exception of Dutch) languages of Europe, Sinitic languages (Chinese, Classical Chinese, particularly when measured by token-level transitivity ratio), Indonesian, Hindi. On the opposite end of the spectrum are Hebrew, Irish, Japanese, as well as Baltic (Lithuanian, Latvian) and Slavic (Slovak, Russian, Polish) languages, which have the lowest transitivity ratios.
 
 \begin{sidewaysfigure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{figures/transitivity_europe.pdf}
+  \includegraphics[width=\textwidth]{figures/exp1/transitivity_europe.pdf}
   \caption{Mean transitivity ratios in languages of Europe}
   \label{fig:transitivity_europe}
 \end{sidewaysfigure}
 
-To look at any potential areal patterns in transitivity, the token-level transitivity ratio results for European languages are also mapped in Fig.~\ref{fig:transitivity_europe}. (A less Eurocentric study of areal patterns is unfortunately difficult for the lack of enough language samples in the UD.) A particularly high transitivity area can be observed in the Iberian peninsular as well as another relatively high transitivity area in the Balkans, in contrast to eastern and northern Europe with lower transitivity.
+To look at any potential areal patterns in transitivity, the token-level transitivity ratio results for European languages are also mapped in Fig.~\ref{fig:transitivity_europe}. A less Eurocentric study of areal patterns is unfortunately difficult due to corpus size constraints of the annotated UD. A particularly high transitivity area can be observed in the Iberian peninsular as well as another relatively high transitivity area in the Balkans, in contrast to eastern and northern Europe with lower transitivity.
 
 Where the languages overlap, these observations match well with those from \citet{say2014}'s survey of transitivity in European languages (as measured by the percentage of verbs that are transitive from a fixed list), who observed high transitivity areas in western Europe except Irish and south-western Balkans, and a corresponding low transitivity area in eastern Europe.
 

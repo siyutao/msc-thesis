@@ -105,44 +105,43 @@ The difference from the standard entropy measure is that the probabilities and t
 
 The correlation between verb frequency and valency frame entropy as conditioned on it is assessed using Spearman's rank correlation coefficient \citep{spearman1904}, which measures the correlation between two rank variables. 
 
-At first glance, there may be concerns about circularity with the correlation: the verb frequency is the first variable, but it is also the number of observations made for estimating the second variable. This is in part mitigated by the use of cross-entropy, as the probabilities of one frame appearing and the average surprisal of that frame are estimated from two separate splits of the corpora. To further address such concerns, a subsampling experiment is performed where I take subsamples of a fixed size (the subsampling threshold) for all verbs and verbs with frequency below the subsampling threshold are not included in the analysis. As corpus size varies dramatically between languages, the subsampling threshold also cannot be one-size-fits-all. I use a heuristically determined subsampling ratio of 0.1 but capped at a maximum of 25 samples. In this way, a lower-resource language such as Greek will see a threshold of 18, as determined by 0.1 $\times$ the frequency of the most frequent verb \textit{μπορώ} (186), whereas a higher-resource language such as English will see a fixed threshold of 25 instead of 313, as it would have been by 0.1 $\times$ the frequency of the most common verb \textit{have} (3134).
+As a simple, related metric that direct measures the range of valency frame alternations, but does not take into the relative frequency of different frames into account, I calculate also the number of valency frames each verb is associated with for comparison and perform Spearman's rank correlation coefficient between verb frequency and number of frames.
+
+At first glance, there may be concerns about circularity with the correlation: the verb frequency is the first variable, but it is also the number of observations made for estimating the second variable. This is in part mitigated by the use of cross-entropy, as the probabilities of one frame appearing and the average surprisal of that frame are estimated from two separate splits of the corpora. To further address such concerns, a subsampling experiment is performed where I take subsamples of a fixed size (the subsampling threshold) for all verbs with frequency above the threshold and verbs with frequency below the subsampling threshold are not included in the analysis. As corpus size varies dramatically between languages, the subsampling threshold also cannot be one-size-fits-all. I use a heuristically determined subsampling ratio of 0.1 but capped at a maximum of 25 samples. In this way, a lower-resource language such as Greek will see a threshold of 18, as determined by 0.1 $\times$ the frequency of the most frequent verb \textit{μπορώ} (186), whereas a higher-resource language such as English will see a fixed threshold of 25 instead of 313, as it would have been by 0.1 $\times$ the frequency of the most common verb \textit{have} (3134).
 
 \subsection{Results and discussion}
 
-% main results
-Results show robust correlation between frequency and valency frame entropy. There is however great cross-linguistic variation in the strength of the correlation. Citation for interpreting the strength of the correlation \citep{schober2018}
-
-\todo{lang with strongest correlation results} 
-\todo{lang with weakest correlation results} 
-
 % plots
-The results are plotted into scatter plots with frequency rank on the x-axis and valency frame entropy on the y-axis. Fig.~\ref{fig:joint_entropy_freq} 
-
-Positive correlation between frequency and frame entropy leads to negative correlation between frequency rank and frame entropy of course.
+The results of the valency frame entropy calculations with the full test set. are plotted into scatter plots in Fig.~\ref{fig:joint_entropy_freq}, where each dot represents a single lexeme with frequency rank on the x-axis and valency frame entropy on the y-axis for each of the languages. The dots are additionally colored by the number of valency frames associated with the verb. To improve plot legibility, only verbs with frequency rank below 1000 are plotted. A visual inspection suggests a clear negative relationship across languages between frequency rank and valency frame as well a negative relationship between frequency rank and number of frames, i.e. positive relationship between frequency and the respective variables. Notably, however, the plots for Japanese and to a slightly lesser extent Chinese and Classical Chinese show a significant number of outliers where high frequency verbs nevertheless have lower valency frame entropy values. 
 
 \begin{sidewaysfigure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{figures/joint_entropy_freq.pdf}
-  \caption{Scatter plots showing relationship between valency frame entropy and frequency rank of verbs, color shows number of frames associated with the verb}
+  \includegraphics[width=\textwidth]{figures/exp2/joint_entropy_freq.pdf}
+  \caption{Scatter plots showing relationship between valency frame entropy and frequency rank of verbs, color shows number of frames associated with the verb (yellow = higher, blue = lower)}
   \label{fig:joint_entropy_freq}
 \end{sidewaysfigure}
 
+Spearman's rank correlation results show robust correlation between frequency and valency frame entropy. I include again only languages with at least 50 verbs for which valid entropy measures can be calculated. Strong to very strong correlations (defined as $\rho\geq.70$, following \citealp{schober2018}) are observed in 48 out of 59 languages and moderate correlations ($\rho\geq.40$) are observed in 58 out of 59 languages, with Japanese being the only exception.  The mean $\rho$ value is 0.78, with a standard deviation of 0.14.
 
-% subsampling results
+Subsampling results help guard against possible circularity by using the same sample size for each verb, at the expense of possibly underestimating entropy for more frequent verbs in particular. One further language (Mbya Guarani) is excluded from subsampling results due to data sparsity. As expected, subsampling results in decreased correlation strength, but 50 out of 59 languages still show moderate correlation strength. The mean $\rho$ value is 0.53, with a standard deviation of 0.14. That the standard deviation remains almost the same indicates that subsampling has a relatively uniform impact across the languages.
 
-Results from subsampling are presented in xxx. As expected, the correlation strength decreased across the board, particularly for languages such as xxx. 
+Full correlation results are shown in Appendix~\ref{appendix:exp2-rho-freq-valency}. Scatter plots using subsampling results per verb are shown in Fig.~\ref{fig:joint_entropy_freq_subsample}. For some languages, the leveling effect of the subsampling is more visible for higher frequency verbs (e.g. Czech, Romanian), whereas for others, the effect is more uniform across frequencies (e.g. Russian, German).
 
-% subsampling discussion
+\begin{sidewaysfigure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/exp2/joint_entropy_freq_subsample.pdf}
+  \caption{Scatter plots showing relationship between valency frame entropy as estimated from the subsample and frequency rank of verbs, color shows number of frames associated with the verb}
+  \label{fig:joint_entropy_freq_subsample}
+\end{sidewaysfigure}
 
-The subsampling results highlights the need as a next step to analyze the results for the varying correlation. This could be because of language structure. Complexity vs the verbal system 
+While the results strongly support the 
 
-% correlation between frequency and dependency relation entropy
+% % correlation between frequency and dependency relation entropy
 
-As an additional test, we also confirm that individual dependency relations do not correlate with frequency. This is as expected and confirms the validity of valency frame as a suitable level for analyzing argument structure.
+% As an additional test, we also confirm that individual dependency relations do not correlate with frequency. This is as expected and confirms the validity of valency frame as a suitable level for analyzing argument structure.
 
-% number of frames
-number of frames should an even stronger correlation with frequency - of course. 
-
+% % number of frames
+number of frames should an even stronger correlation with frequency - of course. In fact, in all 59 languages studied, the number of frames is more strongly correlated with frequency than valency frame entropy does. This is not to be taken as evidence that number of frames. Future study using mixed effect models will be better able to explain.
 
 \section{Experiment 3: Word order or case? Cross-lingual variation in valency encoding strategies}\label{sec:exp3-ablation}
 \subsection{Introduction}
